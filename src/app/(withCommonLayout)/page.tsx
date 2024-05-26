@@ -1,9 +1,13 @@
-import Image from "next/image";
+import BreederSection from "@/components/Ui/HomePage/BreederSection/BreederSection";
+import FindSection from "@/components/Ui/HomePage/FindSection/FindSection";
+import HeroSection from "@/components/Ui/HomePage/HeroSection/HeroSection";
 
 export default function Home() {
   return (
     <>
-      <h1>Home Page</h1>
+      <HeroSection />
+      <FindSection />
+      <BreederSection />
     </>
   );
 }

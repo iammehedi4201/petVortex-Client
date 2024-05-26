@@ -1,7 +1,19 @@
-const CommonLayout = () => {
+import Navbar from "@/components/Shared/Navbar/Navbar";
+import { Box } from "@mui/material";
+import React from "react";
+
+const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <h1>This is CommonLayout component</h1>
+      <Navbar />
+      <Box
+        sx={{
+          minHeight: "100vh",
+        
+        }}
+      >
+        {children}
+      </Box>
     </>
   );
 };

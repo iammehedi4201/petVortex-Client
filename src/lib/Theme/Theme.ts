@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles";
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#1586FD",
+      main: "#f04336",
     },
     secondary: {
       main: "#666f73",
@@ -18,13 +18,16 @@ export const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          padding: "8px 24px",
+          padding: "10px 20px",
+          backgroundColor: "#f04336",
+          color: "#fff",
+          fontWeight: 600,
         },
       },
     },
     MuiContainer: {
       defaultProps: {
-        maxWidth: "lg",
+        maxWidth: "xl",
       },
     },
   },
