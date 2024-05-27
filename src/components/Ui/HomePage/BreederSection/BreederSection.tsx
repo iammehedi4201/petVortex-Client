@@ -3,9 +3,9 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import bg_image from "@/asset/breeder_bg.jpg";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import img_1 from "@/asset/s_slider_bg01.jpg";
-import img_2 from "@/asset/s_slider_bg02.jpg";
-import img_3 from "@/asset/slider_bg02.jpg";
+import img_1 from "@/asset/breeder_img01.jpg";
+import img_2 from "@/asset/breeder_img02.jpg";
+import img_3 from "@/asset/breeder_img04.jpg";
 
 import "swiper/css/autoplay";
 
@@ -45,7 +45,7 @@ const BreederSection = () => {
           <Grid container spacing={2}>
             <Grid item xs={8} md={4}>
               <Box>
-                <Typography variant="h3" component="h1" fontWeight={600}>
+                <Typography variant="h2" component="h1" fontWeight={600}>
                   Working For
                 </Typography>
                 <Typography variant="h3" component="h1" fontWeight={600}>
@@ -125,14 +125,14 @@ const BreederSection = () => {
                           width: "100%",
                           height: "100%",
                           "& img": {
-                            width: "111%",
-                            height: "100%",
+                            width: "100%",
+                            height: "80%",
                           },
                         }}
                       >
                         <Image
                           src={img_1}
-                          width={800}
+                          width={1000}
                           height={500}
                           alt="Description"
                         />
@@ -144,8 +144,8 @@ const BreederSection = () => {
                           width: "100%",
                           height: "100%",
                           "& img": {
-                            width: "111%",
-                            height: "100%",
+                            width: "100%",
+                            height: "80%",
                           },
                         }}
                       >
@@ -163,8 +163,8 @@ const BreederSection = () => {
                           width: "100%",
                           height: "100%",
                           "& img": {
-                            width: "111%",
-                            height: "100%",
+                            width: "100%",
+                            height: "80%",
                           },
                         }}
                       >
@@ -256,12 +256,112 @@ const BreederSection = () => {
           </Grid>
         </Box>
 
-        <Box>
-          <Grid container spacing={2}>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={4}></Grid>
+        <Box py={10}>
+          <Grid container gap={2} justifyContent={"center"}>
+            <Grid item xs={4} md={2.5}>
+              <Box
+                sx={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "10px",
+                  padding: "20px 8px",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  variant="h2"
+                  component="h1"
+                  fontWeight={600}
+                  sx={{
+                    "&:hover": {
+                      color: "#f04336",
+                    },
+                  }}
+                >
+                  73%
+                </Typography>
+                <Typography variant="h6" component="p" fontWeight={600}>
+                  DOGS ARE FIRST BRED
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={4} md={2.5}>
+              <Box
+                sx={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "10px",
+                  padding: "20px 8px",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  variant="h2"
+                  component="h1"
+                  fontWeight={600}
+                  sx={{
+                    "&:hover": {
+                      color: "#f04336",
+                    },
+                  }}
+                >
+                  298+
+                </Typography>
+                <Typography variant="h6" component="p" fontWeight={600}>
+                  MOST DOGS ARE FIRST
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={4} md={2.5}>
+              <Box
+                sx={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "10px",
+                  padding: "20px 8px",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  variant="h2"
+                  component="h1"
+                  fontWeight={600}
+                  sx={{
+                    "&:hover": {
+                      color: "#f04336",
+                    },
+                  }}
+                >
+                  39K
+                </Typography>
+                <Typography variant="h6" component="p" fontWeight={600}>
+                  DOG BREEDING
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={4} md={2.5}>
+              <Box
+                sx={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "10px",
+                  padding: "20px 8px",
+                  textAlign: "center",
+                }}
+              >
+                <Typography
+                  variant="h2"
+                  component="h1"
+                  fontWeight={600}
+                  sx={{
+                    "&:hover": {
+                      color: "#f04336",
+                    },
+                  }}
+                >
+                  89+
+                </Typography>
+                <Typography variant="h6" component="p" fontWeight={600}>
+                  YEARS OF HISTORY
+                </Typography>
+              </Box>
+            </Grid>
           </Grid>
         </Box>
       </Container>

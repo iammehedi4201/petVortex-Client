@@ -1,24 +1,22 @@
 "use client";
 
-import { Box, Button, Container, Typography } from "@mui/material";
-import { Swiper, SwiperSlide } from "swiper/react";
 import banner_1 from "@/asset/s_slider_bg01.jpg";
 import banner_2 from "@/asset/s_slider_bg02.jpg";
 import banner_3 from "@/asset/slider_bg02.jpg";
+import { Box, Button, Container, Typography } from "@mui/material";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 
-import { Navigation } from "swiper/modules";
+import {
+  ArrowBackIosNew,
+  ArrowForwardIos
+} from "@mui/icons-material";
 import Image from "next/image";
 import { useEffect } from "react";
-import {
-  ArrowBack,
-  ArrowBackIos,
-  ArrowBackIosNew,
-  ArrowForwardIos,
-} from "@mui/icons-material";
+import { Navigation } from "swiper/modules";
 
 const HeroSection = () => {
   useEffect(() => {
