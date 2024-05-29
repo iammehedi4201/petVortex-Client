@@ -18,3 +18,7 @@ export type TPet = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type TPetParams = {
+  petId: string;
+};

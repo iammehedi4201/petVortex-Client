@@ -3,8 +3,7 @@ import PetCard from "@/components/Ui/PetsPage/PetCard/PetCard";
 import SideFilterSection from "@/components/Ui/PetsPage/SideFilterSection/SideFilterSection";
 import TopFilterSection from "@/components/Ui/PetsPage/TopFilterSection/TopFilterSection";
 import { TPet } from "@/types";
-import { Box, Button, Divider, Stack, Typography } from "@mui/material";
-import Image from "next/image";
+import { Box } from "@mui/material";
 
 async function getPets() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/pets`, {

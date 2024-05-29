@@ -1,21 +1,43 @@
 "use client";
 
+import PHFileUploader from "@/components/Forms/PFileUploader";
 import PForm from "@/components/Forms/PForm";
 import PInput from "@/components/Forms/PInput";
 import { Box, Button } from "@mui/material";
+import axios from "axios";
 import Link from "next/link";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
-const LoginPage = () => {
-  const handleLogin: SubmitHandler<FieldValues> = (data) => {
-    const toastId = toast.loading("Logging in...");
-    const userInfo = {
-      ...data,
-    };
-    console.log(userInfo);
 
+const img_hosting_token = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_TOKEN;
+
+console.log(img_hosting_token);
+
+const RegisterPage = () => {
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
+
+  const handleRegister: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Registering...");
     try {
-    } catch (error: any) {}
+      console.log("data", data.profilePicture[0]);
+
+      const formData = new FormData();
+      formData.append("image", data.profilePicture);
+      const response = await axios.post(img_hosting_url, formData);
+      console.log("response", response);
+
+      if (response?.data?.success) {
+        const userInfo = {
+          ...data,
+          profilePicture: response?.data?.data?.url,
+        };
+
+      }
+    } catch (error: any) {
+        toast.error()
+    }
+
+    console.log(data);
   };
 
   return (
@@ -25,12 +47,12 @@ const LoginPage = () => {
           className={`text-center bg-gradient-to-r from-blue-800 to-blue-400 min-h-[300px] sm:p-6 p-4 flex items-center justify-center`}
         >
           <h4 className="sm:text-4xl text-2xl  text-white font-extrabold">
-            Login to your account
+            Create your free account
           </h4>
         </div>
         <div className="mx-4 mb-4 -mt-16">
           <PForm
-            onSubmit={handleLogin}
+            onSubmit={handleRegister}
             className="max-w-4xl mx-auto bg-white shadow-[0_2px_18px_-3px_rgba(6,81,237,0.4)] sm:p-8 p-4 rounded-md"
           >
             <div className="grid md:grid-cols-2 md:gap-12 gap-7">
@@ -84,22 +106,44 @@ const LoginPage = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  x="0px"
-                  y="0px"
-                  width="35px"
-                  height="35px"
-                  viewBox="0 0 72 72"
+                  width="22px"
                   fill="#fff"
+                  className="inline shrink-0 mr-4"
+                  viewBox="0 0 22.773 22.773"
                 >
-                  <path d="M36,12c13.255,0,24,10.745,24,24c0,10.656-6.948,19.685-16.559,22.818c0.003-0.009,0.007-0.022,0.007-0.022	s-1.62-0.759-1.586-2.114c0.038-1.491,0-4.971,0-6.248c0-2.193-1.388-3.747-1.388-3.747s10.884,0.122,10.884-11.491	c0-4.481-2.342-6.812-2.342-6.812s1.23-4.784-0.426-6.812c-1.856-0.2-5.18,1.774-6.6,2.697c0,0-2.25-0.922-5.991-0.922	c-3.742,0-5.991,0.922-5.991,0.922c-1.419-0.922-4.744-2.897-6.6-2.697c-1.656,2.029-0.426,6.812-0.426,6.812	s-2.342,2.332-2.342,6.812c0,11.613,10.884,11.491,10.884,11.491s-1.097,1.239-1.336,3.061c-0.76,0.258-1.877,0.576-2.78,0.576	c-2.362,0-4.159-2.296-4.817-3.358c-0.649-1.048-1.98-1.927-3.221-1.927c-0.817,0-1.216,0.409-1.216,0.876s1.146,0.793,1.902,1.659	c1.594,1.826,1.565,5.933,7.245,5.933c0.617,0,1.876-0.152,2.823-0.279c-0.006,1.293-0.007,2.657,0.013,3.454	c0.034,1.355-1.586,2.114-1.586,2.114s0.004,0.013,0.007,0.022C18.948,55.685,12,46.656,12,36C12,22.745,22.745,12,36,12z"></path>
+                  <path
+                    d="M15.769 0h.162c.13 1.606-.483 2.806-1.228 3.675-.731.863-1.732 1.7-3.351 1.573-.108-1.583.506-2.694 1.25-3.561C13.292.879 14.557.16 15.769 0zm4.901 16.716v.045c-.455 1.378-1.104 2.559-1.896 3.655-.723.995-1.609 2.334-3.191 2.334-1.367 0-2.275-.879-3.676-.903-1.482-.024-2.297.735-3.652.926h-.462c-.995-.144-1.798-.932-2.383-1.642-1.725-2.098-3.058-4.808-3.306-8.276v-1.019c.105-2.482 1.311-4.5 2.914-5.478.846-.52 2.009-.963 3.304-.765.555.086 1.122.276 1.619.464.471.181 1.06.502 1.618.485.378-.011.754-.208 1.135-.347 1.116-.403 2.21-.865 3.652-.648 1.733.262 2.963 1.032 3.723 2.22-1.466.933-2.625 2.339-2.427 4.74.176 2.181 1.444 3.457 3.028 4.209z"
+                    data-original="#000000"
+                  />
                 </svg>
-                Continue with Github
+                Continue with Apple
               </button>
             </div>
             <div className="my-7 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
               <p className="mx-4 text-center">Or</p>
             </div>
             <div className="grid md:grid-cols-2 gap-y-7 gap-x-12">
+              <PInput
+                name="name"
+                fullWidth={true}
+                label="Name*"
+                placeholder="Enter Your Name"
+                type="text"
+              />
+              <PInput
+                name="contactNo"
+                fullWidth={true}
+                label="Contact No*"
+                placeholder="Enter Your Contact No"
+                type="tel"
+              />
+              <PInput
+                name="userName"
+                fullWidth={true}
+                label="userName*"
+                placeholder="Enter Your user name"
+                type="tel"
+              />
               <PInput
                 name="email"
                 fullWidth={true}
@@ -114,25 +158,28 @@ const LoginPage = () => {
                 placeholder="Enter Your Password"
                 type="password"
               />
+              <PInput
+                name="confirmPassword"
+                fullWidth={true}
+                label="Confirm Password*"
+                placeholder="Enter Your Confirm Password"
+                type="password"
+              />
             </div>
-            <Box className="flex items-center justify-between gap-2 mt-5">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-                <label className="ml-3 block text-sm">Remember me</label>
-              </div>
-              <div className="text-sm">
-                <a
-                  href="jajvascript:void(0);"
-                  className="text-blue-600 hover:underline"
-                >
-                  Forgot your password?
-                </a>
-              </div>
+            <Box
+              sx={{
+                width: "100%",
+              }}
+            >
+              <PHFileUploader
+                name="profilePicture"
+                label="Upload Profile Pic"
+                sx={{
+                  backgroundColor: "#3c79e6",
+                  width: "100%",
+                  my: 3,
+                }}
+              />
             </Box>
             <Box className="!mt-10">
               <Button
@@ -141,16 +188,16 @@ const LoginPage = () => {
                   backgroundColor: "#3c79e6",
                 }}
               >
-                LogIn
+                Sign up
               </Button>
             </Box>
             <p className="text-sm mt-6 text-center">
-              Don't have an account`?{" "}
+              Already have an account?{" "}
               <Link
-                href="/register"
+                href="/login"
                 className="text-blue-600 font-semibold hover:underline ml-1"
               >
-                Register Now
+                Login here
               </Link>
             </p>
           </PForm>
@@ -160,4 +207,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

@@ -1,6 +1,7 @@
 import { TPet } from "@/types";
 import { Box, Button, Divider, Stack, Typography } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 const PetCard = ({ pet }: { pet: TPet }) => {
   return (
@@ -67,7 +68,9 @@ const PetCard = ({ pet }: { pet: TPet }) => {
             mt: 2,
           }}
         >
-          <Button fullWidth>See Details</Button>
+          <Button LinkComponent={Link} href={`/pets/${pet?.id}`} fullWidth>
+            See Details
+          </Button>
         </Box>
       </Box>
     </Box>
