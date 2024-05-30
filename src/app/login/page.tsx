@@ -6,7 +6,10 @@ import { Box, Button } from "@mui/material";
 import Link from "next/link";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
+
 const LoginPage = () => {
+  let text = "Don&apos;t have an account?";
+
   const handleLogin: SubmitHandler<FieldValues> = (data) => {
     const toastId = toast.loading("Logging in...");
     const userInfo = {
@@ -145,7 +148,7 @@ const LoginPage = () => {
               </Button>
             </Box>
             <p className="text-sm mt-6 text-center">
-              Don't have an account`?{" "}
+              {text}{" "}
               <Link
                 href="/register"
                 className="text-blue-600 font-semibold hover:underline ml-1"

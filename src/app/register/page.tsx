@@ -1,43 +1,56 @@
 "use client";
-
 import PHFileUploader from "@/components/Forms/PFileUploader";
 import PForm from "@/components/Forms/PForm";
 import PInput from "@/components/Forms/PInput";
+import { registerUser } from "@/services/actions/register";
 import { Box, Button } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
 const img_hosting_token = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_TOKEN;
 
-console.log(img_hosting_token);
 
 const RegisterPage = () => {
+  const router = useRouter();
+
+  //: Image Hosting URL
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
+  //: Handle Register
   const handleRegister: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Registering...");
     try {
-      console.log("data", data.profilePicture[0]);
-
       const formData = new FormData();
       formData.append("image", data.profilePicture);
-      const response = await axios.post(img_hosting_url, formData);
-      console.log("response", response);
+      const imgHostResponse = await axios.post(img_hosting_url, formData);
+      console.log("response", imgHostResponse);
 
-      if (response?.data?.success) {
+      if (imgHostResponse?.data?.success) {
         const userInfo = {
-          ...data,
-          profilePicture: response?.data?.data?.url,
+          name: data.name,
+          contactNo: data.contactNo,
+          userName: data.userName,
+          email: data.email,
+          password: data.password,
+          profilePicture: imgHostResponse?.data?.data?.url,
         };
 
+        //: Register User
+        const response = await registerUser(userInfo);
+
+        if (response?.success) {
+          toast.success(response?.message, { id: toastId, duration: 3000 });
+          router.push("/login");
+        } else {
+          toast.error(response?.errorDetails, { id: toastId, duration: 3000 });
+        }
       }
     } catch (error: any) {
-        toast.error()
+      toast.error(error?.errorDetails, { id: toastId, duration: 3000 });
     }
-
-    console.log(data);
   };
 
   return (

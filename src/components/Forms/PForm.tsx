@@ -1,9 +1,9 @@
 import { resolve } from "path";
 import {
-    FieldValues,
-    FormProvider,
-    SubmitHandler,
-    useForm
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  useForm,
 } from "react-hook-form";
 
 type TFormConfig = {
@@ -39,7 +39,6 @@ const PForm = ({
   const { handleSubmit, reset } = methods;
 
   const Submit: SubmitHandler<FieldValues> = (data) => {
-    console.log("From Provider", data);
     onSubmit(data);
     reset();
   };
