@@ -1,7 +1,24 @@
 export const setToLocalStorage = (key: string, token: string) => {
   if (!key || typeof window === "undefined" || !token) {
+    return "";
+  }
+  return localStorage.setItem(key, token);
+};
+
+export const getFromLocalStorage = (key: string) => {
+  if (!key || typeof window === "undefined") {
+    return "";
+  }
+  const token = localStorage.getItem(key);
+  console.log("token", token);
+
+  return token;
+};
+
+export const removeFormLocalStorage = (key: string) => {
+  if (!key || typeof window === "undefined") {
     return;
   }
 
-  return localStorage.setItem(key, token);
+  return localStorage.removeItem(key);
 };

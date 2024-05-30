@@ -2,23 +2,60 @@
 
 import PForm from "@/components/Forms/PForm";
 import PInput from "@/components/Forms/PInput";
+import { loginUser } from "@/services/actions/userLogin";
+import { storeUserInfo } from "@/services/auth.services";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button } from "@mui/material";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+
+//: Register Validation Schema
+export const loginValidationSchema = z.object({
+  email: z.string().email({
+    message: "Invalid Email",
+  }),
+  password: z.string({
+    message: "Password is required",
+  }),
+});
+
+//: Default Values
+export const defaultValues = {
+  email: "iammehedi296@gmail.com",
+  password: "586258",
+};
 
 const LoginPage = () => {
   let text = "Don&apos;t have an account?";
+  const router = useRouter();
 
-  const handleLogin: SubmitHandler<FieldValues> = (data) => {
+  const handleLogin: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Logging in...");
     const userInfo = {
-      ...data,
+      userName: data?.email,
+      email: data?.email,
+      password: data?.password,
     };
-    console.log(userInfo);
+    console.log("userInfo", userInfo);
 
+    const response = await loginUser(userInfo);
+    console.log("response", response);
+
+    if (response?.success) {
+      storeUserInfo(response?.data?.token);
+      toast.success(response?.message, { id: toastId, duration: 3000 });
+      router.push("/");
+    } else {
+      toast.error(response?.message, { id: toastId, duration: 3000 });
+    }
     try {
-    } catch (error: any) {}
+    } catch (error: any) {
+      toast.error(error?.errorDetails, { id: toastId, duration: 3000 });
+    }
   };
 
   return (
@@ -34,10 +71,17 @@ const LoginPage = () => {
         <div className="mx-4 mb-4 -mt-16">
           <PForm
             onSubmit={handleLogin}
+            defaultValues={defaultValues}
+            resolver={zodResolver(loginValidationSchema)}
             className="max-w-4xl mx-auto bg-white shadow-[0_2px_18px_-3px_rgba(6,81,237,0.4)] sm:p-8 p-4 rounded-md"
           >
             <div className="grid md:grid-cols-2 md:gap-12 gap-7">
               <button
+                onClick={() =>
+                  signIn("google", {
+                    callbackUrl: "http://localhost:3000/",
+                  })
+                }
                 type="button"
                 className="w-full px-4 py-3 flex items-center justify-center rounded-md text-[#333] text-base tracking-wider font-semibold border-none outline-none bg-gray-100 hover:bg-gray-200"
               >
@@ -108,7 +152,6 @@ const LoginPage = () => {
                 fullWidth={true}
                 label="Email*"
                 placeholder="Enter Your Email"
-                type="email"
               />
               <PInput
                 name="password"

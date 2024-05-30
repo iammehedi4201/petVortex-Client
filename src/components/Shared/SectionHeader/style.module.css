@@ -15,6 +15,6 @@
   display: inline-block; /* Inline-block display */
   font-size: 16px; /* Font size */
   border-radius: 10px 10px 20px 20px; /* Rounded top corners */
-  clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%); /* Clip path value */
+  clip-path: polygon(0 0, 100% 0, 96% 100%, 0% 100%); /* Clip path value */
   font-family: Arial, sans-serif; /* Font family */
 }

@@ -1,4 +1,6 @@
 "use client";
+import { useGetMyProfileQuery } from "@/redux/api/user/userApi";
+import { removeUser } from "@/services/auth.services";
 import {
   Box,
   Button,
@@ -11,24 +13,29 @@ import {
   SvgIcon,
   Typography,
 } from "@mui/material";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Navbar = () => {
-  const isLogin = true;
+  const router = useRouter();
+  //: Dynamic import for AuthButton and UserProfile
+  const AuthButtonComponent = dynamic(
+    () => import("@/components/Ui/AuthButton/AuthButton"),
+    { ssr: false }
+  );
+  const UserProfileComponent = dynamic(
+    () => import("@/components/Ui/UserProfile/UserProfile"),
+    { ssr: false }
+  );
 
   const [isMenuOpen, setIsMenuOpen] = useState(false); //for navbar menu toogle
-  const [isUSerMenuOpen, setIsUserMenuOpen] = useState(false); //for profile menu toggle
-
   //handle navbar menu toggle
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  //handle profile menu toogle
-  const handleOpenUserMenu = () => {
-    setIsUserMenuOpen(!isUSerMenuOpen);
-  };
   return (
     <div className="">
       <Box
@@ -97,65 +104,8 @@ const Navbar = () => {
                 marginTop={{ sm: "0", "400px": "1rem" }} // sm:mt-0 max-[400px]:mt-3
               >
                 {/* ------ User Profile  toogle Button ------ */}
-                <Link
-                  href="/dashboard/mycart"
-                  style={{
-                    display: "flex",
-                    marginLeft: -1,
-                    borderColor: "red",
-                    textDecoration: "none",
-                    alignItems: "center",
-                    position: "relative",
-                  }}
-                >
-                  <SvgIcon
-                    sx={{
-                      color: "orange",
-                      width: 24,
-                      height: 24,
-                    }}
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
-                      clipRule="evenodd"
-                    />
-                  </SvgIcon>
-                </Link>
-
-                {isLogin && (
-                  <IconButton
-                    onClick={handleOpenUserMenu}
-                    sx={{
-                      display: "flex",
-                      mx: 2,
-                      borderColor: "red",
-                      textDecoration: "none",
-                      backgroundColor: "gray.800",
-                      borderRadius: "50%",
-                      "&:focus": {
-                        ring: 4,
-                        ringColor: "gray.300",
-                        dark: {
-                          ringColor: "gray.600",
-                        },
-                      },
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      src="https://i.ibb.co/VDNwmhT/photo-2023-11-04-13-57-23-2.jpg" // Replace with actual user photo URL
-                      alt="user"
-                      sx={{ width: 32, height: 32, borderRadius: "50%" }}
-                    />
-                  </IconButton>
-                )}
-
-                <Link href="/login" type="button">
-                  <Button size="small">Login</Button>
-                </Link>
-
-                {/* ------ Navbar toogle Button >>  i put this navbar toogle for my easy understanding------ */}
+                <UserProfileComponent />
+                <AuthButtonComponent />
                 <IconButton
                   onClick={toggleMenu}
                   aria-controls="navbar-search"
@@ -205,7 +155,7 @@ const Navbar = () => {
               </Stack>
 
               {/* <!-- user profile  Dropdown menu --> */}
-              <Box
+              {/* <Box
                 sx={{
                   zIndex: 50,
                   display: isUSerMenuOpen ? "block" : "none",
@@ -217,7 +167,7 @@ const Navbar = () => {
                   position: "absolute",
                   top: "2rem",
                   transform: "translateY(2rem) translateX(-40%)",
-                  width: "auto",
+                  width: "500px",
                   maxWidth: "100%",
                   dark: {
                     bgcolor: "gray.700",
@@ -227,10 +177,10 @@ const Navbar = () => {
               >
                 <Box sx={{ px: 2, py: 1 }}>
                   <Typography variant="body2" color="text.primary">
-                    Mehedi Hasan
+                    {profile?.data?.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    iammehedi296@gmail.com
+                    {profile?.data?.email}
                   </Typography>
                 </Box>
                 <List>
@@ -249,7 +199,8 @@ const Navbar = () => {
                       variant="contained"
                       color="primary"
                       onClick={async () => {
-                        console.log("logout");
+                        removeUser();
+                        router.push("/");
                       }}
                       sx={{
                         textTransform: "none",
@@ -265,7 +216,7 @@ const Navbar = () => {
                     </Button>
                   </ListItem>
                 </List>
-              </Box>
+              </Box> */}
             </Box>
           </Box>
 
@@ -283,10 +234,10 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/products"
+                  href="/pets"
                   className="block py-2 pl-3 pr-4 text-black rounded  hover:text-orange-500 "
                 >
-                  Shop Now
+                  Pets
                 </Link>
               </li>
 
@@ -301,7 +252,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/contractus"
-                  className="block py-2 pl-3 pr-4 text-black s hover:text-orange-500 "
+                  className="block py-2 pl-3 pr-4 text-black  hover:text-orange-500 "
                 >
                   Contract Us
                 </Link>
@@ -310,7 +261,7 @@ const Navbar = () => {
               <li>
                 <Link
                   href={"/dashboard/adminhome"}
-                  className="block py-2 pl-3 pr-4 text-white rounded  md:p-0   hover:text-orange-500 "
+                  className="block py-2 pl-3 pr-4 text-black rounded  hover:text-orange-500 "
                 >
                   Dashboard
                 </Link>

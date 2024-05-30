@@ -6,3 +6,9 @@ type TRegisterUser = {
   password: string;
   profilePicture: string;
 };
+
+type TLoginUser = {
+  userName?: string;
+  email?: string;
+  password?: string;
+};

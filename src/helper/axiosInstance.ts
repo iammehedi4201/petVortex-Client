@@ -1,5 +1,5 @@
 import { authKey } from "@/constant/common";
-import { getTokenFromLocalStorage } from "@/utils/localStorage";
+import { getFromLocalStorage } from "@/utils/local_storage";
 import axios, { AxiosError } from "axios";
 
 const instance = axios.create();
@@ -10,7 +10,9 @@ instance.defaults.timeout = 5000;
 
 // request interceptors
 instance.interceptors.request.use((config) => {
-  const accessToken = getTokenFromLocalStorage(authKey);
+  const accessToken = getFromLocalStorage(authKey);
+  console.log("accessToken", accessToken);
+
   if (accessToken) {
     config.headers.authorization = accessToken;
   }

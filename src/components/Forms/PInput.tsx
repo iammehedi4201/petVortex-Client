@@ -36,7 +36,6 @@ const PInput = ({
           size={size}
           fullWidth={fullWidth}
           placeholder={label}
-          required={required}
           error={!!error?.message}
           helperText={error?.message}
         />

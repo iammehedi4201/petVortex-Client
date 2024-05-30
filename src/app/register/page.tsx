@@ -3,15 +3,60 @@ import PHFileUploader from "@/components/Forms/PFileUploader";
 import PForm from "@/components/Forms/PForm";
 import PInput from "@/components/Forms/PInput";
 import { registerUser } from "@/services/actions/register";
+import { loginUser } from "@/services/actions/userLogin";
+import { storeUserInfo } from "@/services/auth.services";
 import { Box, Button } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
+//: Image Hosting Token
 const img_hosting_token = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_TOKEN;
 
+//: Register Validation Schema
+export const registerValidationSchema = z
+  .object({
+    name: z.string({
+      message: "Name is required",
+    }),
+    contactNo: z.string({
+      message: "Contact No is required",
+    }),
+    userName: z.string().min(3).max(255, {
+      message: "User Name should be between 3 to 255 characters",
+    }),
+    email: z.string().email({
+      message: "Invalid Email",
+    }),
+    password: z.string({
+      message: "Password is required",
+    }),
+    confirmPassword: z.string({
+      message: "Confirm Password is required",
+    }),
+    profilePicture: z.string({
+      message: "Profile Picture is required",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Password and Confirm Password should be same",
+    path: ["confirmPassword"],
+  });
+
+//: Default Values
+export const defaultValues = {
+  name: "",
+  contactNo: "",
+  userName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  profilePicture: "",
+};
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -41,9 +86,17 @@ const RegisterPage = () => {
         //: Register User
         const response = await registerUser(userInfo);
 
+        //: Check if response is successful
         if (response?.success) {
-          toast.success(response?.message, { id: toastId, duration: 3000 });
-          router.push("/login");
+          const loginResponse = await loginUser({
+            email: data?.email,
+            password: data?.password,
+          });
+          if (loginResponse?.success) {
+            storeUserInfo(loginResponse?.data?.token);
+            toast.success(response?.message, { id: toastId, duration: 3000 });
+            router.push("/");
+          }
         } else {
           toast.error(response?.errorDetails, { id: toastId, duration: 3000 });
         }
@@ -66,6 +119,8 @@ const RegisterPage = () => {
         <div className="mx-4 mb-4 -mt-16">
           <PForm
             onSubmit={handleRegister}
+            defaultValues={defaultValues}
+            resolver={zodResolver(registerValidationSchema)}
             className="max-w-4xl mx-auto bg-white shadow-[0_2px_18px_-3px_rgba(6,81,237,0.4)] sm:p-8 p-4 rounded-md"
           >
             <div className="grid md:grid-cols-2 md:gap-12 gap-7">
@@ -148,14 +203,14 @@ const RegisterPage = () => {
                 fullWidth={true}
                 label="Contact No*"
                 placeholder="Enter Your Contact No"
-                type="tel"
+                type="text"
               />
               <PInput
                 name="userName"
                 fullWidth={true}
                 label="userName*"
                 placeholder="Enter Your user name"
-                type="tel"
+                type="text"
               />
               <PInput
                 name="email"
