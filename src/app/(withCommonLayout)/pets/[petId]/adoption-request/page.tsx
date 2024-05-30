@@ -1,8 +1,18 @@
 "use client";
+
+import PForm from "@/components/Forms/PForm";
+import PInput from "@/components/Forms/PInput";
 import SectionHeader from "@/components/Shared/SectionHeader/SectionHeader";
+import {
+  useCreateAdoptionRequestMutation,
+  useGetAdoptionRequestsQuery,
+} from "@/redux/api/adoptionRequests/adoptionRequestApi";
 import { useGetPetByIdQuery } from "@/redux/api/pet/petApi";
+import { useGetMyProfileQuery } from "@/redux/api/user/userApi";
 import { Box, Button, Container } from "@mui/material";
 import Image from "next/image";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
 type TParams = {
   params: {
@@ -10,8 +20,50 @@ type TParams = {
   };
 };
 
-const AdoptionRequesPage = ({ params }: TParams) => {
+const AdoptionRequestPage = ({ params }: TParams) => {
+  //: Get pet by id
   const { data: pet, isLoading } = useGetPetByIdQuery(params?.petId);
+
+  //: Get my profile
+  const { data: myProfile } = useGetMyProfileQuery("");
+
+  //: Create adoption request
+  const [createAdoptionRequest] = useCreateAdoptionRequestMutation();
+
+  const { data } = useGetAdoptionRequestsQuery("");
+  console.log("Adoption Requests", data);
+  
+
+  const defaultValues = {
+    firstName: myProfile?.data?.name,
+    lastName: myProfile?.data?.name,
+    email: myProfile?.data?.email,
+    contactNo: myProfile?.data?.contactNo,
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+  };
+
+  const handleAdoptionRequest: SubmitHandler<FieldValues> = async (data) => {
+    // const toastId = toast.loading("Sending Request...");
+    try {
+      const adoptionRequestData = {
+        petId: params?.petId,
+        address: data?.address,
+        city: data?.city,
+        state: data?.state,
+        zipCode: data?.zipCode,
+      };
+      const response = await createAdoptionRequest(
+        adoptionRequestData
+      ).unwrap();
+
+      console.log("Adoption Request", response);
+    } catch (error: any) {
+      toast.error("Failed to send request");
+    }
+  };
 
   return (
     <Box>
@@ -132,17 +184,25 @@ const AdoptionRequesPage = ({ params }: TParams) => {
                       {pet?.data?.name}
                     </span>
                   </h2>
-                  <form className="mt-8">
+                  <PForm
+                    onSubmit={handleAdoptionRequest}
+                    defaultValues={defaultValues}
+                    className="mt-8"
+                  >
                     <div>
                       <h3 className="text-base font-semibold text-gray-800 mb-4">
                         Personal Details
                       </h3>
                       <div className="grid md:grid-cols-2 gap-4">
                         <div className="relative flex items-center">
-                          <input
+                          <PInput
+                            label="First Name"
+                            name="firstName"
                             type="text"
                             placeholder="First Name"
-                            className="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border-b focus:border-gray-800 outline-none"
+                            sx={{
+                              width: "100%",
+                            }}
                           />
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -165,10 +225,14 @@ const AdoptionRequesPage = ({ params }: TParams) => {
                         </div>
 
                         <div className="relative flex items-center">
-                          <input
+                          <PInput
+                            label="Last Name"
+                            name="lastName"
                             type="text"
                             placeholder="Last Name"
-                            className="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border-b focus:border-gray-800 outline-none"
+                            sx={{
+                              width: "100%",
+                            }}
                           />
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -191,10 +255,14 @@ const AdoptionRequesPage = ({ params }: TParams) => {
                         </div>
 
                         <div className="relative flex items-center">
-                          <input
+                          <PInput
+                            label="Email"
+                            name="email"
                             type="email"
                             placeholder="Email"
-                            className="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border-b focus:border-gray-800 outline-none"
+                            sx={{
+                              width: "100%",
+                            }}
                           />
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -231,10 +299,14 @@ const AdoptionRequesPage = ({ params }: TParams) => {
                         </div>
 
                         <div className="relative flex items-center">
-                          <input
-                            type="number"
+                          <PInput
+                            label="Contact No."
+                            name="contactNo"
+                            type="text"
                             placeholder="Phone No."
-                            className="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border-b focus:border-gray-800 outline-none"
+                            sx={{
+                              width: "100%",
+                            }}
                           />
                           <svg
                             fill="#bbb"
@@ -255,38 +327,54 @@ const AdoptionRequesPage = ({ params }: TParams) => {
                         Shipping Address
                       </h3>
                       <div className="grid md:grid-cols-2 gap-4">
-                        <input
+                        <PInput
+                          label="Address Line"
+                          name="address"
                           type="text"
                           placeholder="Address Line"
-                          className="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border-b focus:border-gray-800 outline-none"
+                          sx={{
+                            width: "100%",
+                          }}
                         />
-                        <input
+                        <PInput
+                          label="City"
+                          name="city"
                           type="text"
                           placeholder="City"
-                          className="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border-b focus:border-gray-800 outline-none"
+                          sx={{
+                            width: "100%",
+                          }}
                         />
-                        <input
+                        <PInput
+                          label="State"
+                          name="state"
                           type="text"
                           placeholder="State"
-                          className="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border-b focus:border-gray-800 outline-none"
+                          sx={{
+                            width: "100%",
+                          }}
                         />
-                        <input
+                        <PInput
+                          label="Zip Code"
+                          name="zipCode"
                           type="text"
                           placeholder="Zip Code"
-                          className="px-4 py-3.5 bg-white text-gray-800 w-full text-sm border-b focus:border-gray-800 outline-none"
+                          sx={{
+                            width: "100%",
+                          }}
                         />
                       </div>
 
                       <div className="flex gap-4 max-md:flex-col mt-8">
                         <Button
-                          type="button"
+                          type="submit"
                           className="rounded-md px-4 py-3 w-full text-sm font-semibold bg-gray-800 text-white hover:bg-gray-900"
                         >
                           Send Request
                         </Button>
                       </div>
                     </div>
-                  </form>
+                  </PForm>
                 </div>
               </div>
             </div>
@@ -297,4 +385,4 @@ const AdoptionRequesPage = ({ params }: TParams) => {
   );
 };
 
-export default AdoptionRequesPage;
+export default AdoptionRequestPage;

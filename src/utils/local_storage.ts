@@ -10,8 +10,6 @@ export const getFromLocalStorage = (key: string) => {
     return "";
   }
   const token = localStorage.getItem(key);
-  console.log("token", token);
-
   return token;
 };
 

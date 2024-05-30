@@ -10,6 +10,7 @@ type TInputProps = {
   sx?: SxProps;
   placeholder?: string;
   required?: boolean;
+  className?: string;
 };
 
 const PInput = ({
@@ -20,6 +21,7 @@ const PInput = ({
   fullWidth,
   sx,
   required,
+  className,
 }: TInputProps) => {
   const { control } = useFormContext();
   return (
@@ -38,6 +40,7 @@ const PInput = ({
           placeholder={label}
           error={!!error?.message}
           helperText={error?.message}
+          className={className}
         />
       )}
     />
