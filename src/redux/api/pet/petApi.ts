@@ -3,10 +3,23 @@ import { baseApi } from "../baseApi";
 const petApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllPets: builder.query({
-      query: () => {
+      query: (query) => {
+        const params = new URLSearchParams();
+        if (query) {
+          query.forEach((item: { name: string; value: any }) => {
+            params.append(item.name, item.value as any);
+          });
+        }
         return {
-          url: "/pets",
+          url: `/pets`,
           method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: any) => {
+        return {
+          data: response?.data,
+          meta: response?.meta,
         };
       },
     }),
@@ -19,6 +32,7 @@ const petApi = baseApi.injectEndpoints({
       },
     }),
   }),
+  overrideExisting: true,
 });
 
 export const { useGetAllPetsQuery, useGetPetByIdQuery } = petApi;

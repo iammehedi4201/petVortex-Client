@@ -1,34 +1,37 @@
 "use client";
+import { addFilter, removeFilter } from "@/redux/api/pet/petSlice";
+import { useAppDispatch } from "@/redux/hook";
+import { Add } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
 const SideFilterSection = () => {
-  const [filter, setFilter] = useState("");
-  const [minPrice, setMinPrice] = useState(1);
-  const [maxPrice, setMaxPrice] = useState(500);
-
-  useEffect(() => {
-    setFilter(`minPrice=${minPrice}&maxPrice=${maxPrice}`);
-  }, [minPrice, maxPrice]);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="w-full pr-2 lg:w-1/4 lg:block">
-      <div className="p-4 mb-5 bg-white border border-[#f04336]  ">
-        <h2 className="text-2xl font-bold dark:text-gray-900">species</h2>
-        <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
+      <div className="p-4 mb-5 bg-white border border-[#f04336]">
+        <h2 className="text-2xl font-bold dark:text-gray-900">Species</h2>
+        <div className="w-16 pb-2 mb-6 border-b-2 border-[#f04336] "></div>
         <ul>
           <li className="mb-4">
             <label className="flex items-center dark:text-gray-900 ">
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`brand=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Nike"
+                value="dog"
+                name="species"
               />
-              <span className="text-lg  ">Nike</span>
+              <span className="text-lg">Dog</span>
             </label>
           </li>
           <li className="mb-4">
@@ -36,20 +39,26 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`brand=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2 "
-                value="Adidas"
+                value="cat"
+                name="species"
               />
-              <span className="text-lg">Adidas</span>
+              <span className="text-lg">Cat</span>
             </label>
           </li>
         </ul>
       </div>
-      <div className="p-4 mb-5 bg-white border border-gray-200  dark:border-gray-900">
-        <h2 className="text-2xl font-bold dark:text-gray-900">Style</h2>
+      <div className="p-4 mb-5 bg-white border border-[#f04336]">
+        <h2 className="text-2xl font-bold dark:text-gray-900">Breed</h2>
         <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
         <ul>
           <li className="mb-4">
@@ -57,14 +66,20 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`style=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Sneakers"
+                value="labrador"
+                name="breed"
               />
-              <span className="text-lg dark:text-gray-900">Sneakers</span>
+              <span className="text-lg dark:text-gray-900">Labrador</span>
             </label>
           </li>
           <li className="mb-4">
@@ -72,14 +87,20 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`style=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Sports"
+                value="bulldog"
+                name="breed"
               />
-              <span className="text-lg dark:text-gray-900">Sports</span>
+              <span className="text-lg dark:text-gray-900">Bulldog</span>
             </label>
           </li>
           <li className="mb-4">
@@ -87,20 +108,47 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`style=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Boots"
+                value="siamese"
+                name="breed"
               />
-              <span className="text-lg dark:text-gray-900">Boots</span>
+              <span className="text-lg dark:text-gray-900">Siamese</span>
+            </label>
+          </li>
+          <li className="mb-4">
+            <label className="flex items-center dark:text-gray-300">
+              <input
+                onChange={(e) =>
+                  e.target.checked
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
+                }
+                type="checkbox"
+                className="w-4 h-4 mr-2"
+                value="persian"
+                name="breed"
+              />
+              <span className="text-lg dark:text-gray-900">Persian</span>
             </label>
           </li>
         </ul>
       </div>
-      <div className="p-4 mb-5 bg-white border border-gray-200  dark:border-gray-900">
-        <h2 className="text-2xl font-bold dark:text-gray-900">Model</h2>
+      <div className="p-4 mb-5 bg-white border border-[#f04336]">
+        <h2 className="text-2xl font-bold dark:text-gray-900">Age</h2>
         <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
         <ul>
           <li className="mb-4">
@@ -108,14 +156,20 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`model=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Terrex"
+                value="15"
+                name="age"
               />
-              <span className="text-lg dark:text-gray-900">Terrex</span>
+              <span className="text-lg dark:text-gray-900">15</span>
             </label>
           </li>
           <li className="mb-4">
@@ -123,14 +177,20 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`model=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Air Zoom"
+                value="3"
+                name="age"
               />
-              <span className="text-lg dark:text-gray-900">Air Zoom</span>
+              <span className="text-lg dark:text-gray-900">3</span>
             </label>
           </li>
           <li className="mb-4">
@@ -138,81 +198,25 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`model=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Harden Vol. 5"
+                value="16"
+                name="age"
               />
-              <span className="text-lg dark:text-gray-900">Harden Vol. 5</span>
+              <span className="text-lg dark:text-gray-900">16</span>
             </label>
           </li>
         </ul>
       </div>
-      <div className="p-4 mb-5 bg-white border border-gray-200  dark:border-gray-900">
-        <h2 className="text-2xl font-bold dark:text-gray-900">Date</h2>
-        <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-        <div className="flex items-center justify-between">
-          <input
-            type="date"
-            className="w-full px-2 h-8 dark:text-gray-900 border-2 border-cyan-900 rounded-md"
-            onChange={(e) => setFilter(`createdAt=${e.target.value}`)}
-          />
-        </div>
-      </div>
-      <div className="p-4 mb-5 bg-white border border-gray-200  dark:border-gray-900">
-        <h2 className="text-2xl font-bold dark:text-gray-900">Color</h2>
-        <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-        <ul>
-          <li className="mb-4">
-            <label className="flex items-center dark:text-gray-300">
-              <input
-                onChange={(e) =>
-                  e.target.checked
-                    ? setFilter(`color=${e.target.value}`)
-                    : setFilter("")
-                }
-                type="checkbox"
-                className="w-4 h-4 mr-2"
-                value="blue"
-              />
-              <span className="text-lg dark:text-gray-900">Blue</span>
-            </label>
-          </li>
-          <li className="mb-4">
-            <label className="flex items-center dark:text-gray-300">
-              <input
-                onChange={(e) =>
-                  e.target.checked
-                    ? setFilter(`color=${e.target.value}`)
-                    : setFilter("")
-                }
-                type="checkbox"
-                className="w-4 h-4 mr-2"
-                value="orange"
-              />
-              <span className="text-lg dark:text-gray-900">Orange</span>
-            </label>
-          </li>
-          <li className="mb-4">
-            <label className="flex items-center dark:text-gray-300">
-              <input
-                onChange={(e) =>
-                  e.target.checked
-                    ? setFilter(`color=${e.target.value}`)
-                    : setFilter("")
-                }
-                type="checkbox"
-                className="w-4 h-4 mr-2"
-                value="yellow"
-              />
-              <span className="text-lg dark:text-gray-900">Yellow</span>
-            </label>
-          </li>
-        </ul>
-      </div>
-      <div className="p-4 mb-5 bg-white border border-gray-200  dark:border-gray-900">
+      <div className="p-4 mb-5 bg-white border border-[#f04336]">
         <h2 className="text-2xl font-bold dark:text-gray-900">Size</h2>
         <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
         <ul>
@@ -221,14 +225,20 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`size=${Number(e.target.value)}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="44"
+                value="small"
+                name="size"
               />
-              <span className="text-lg dark:text-gray-900">44</span>
+              <span className="text-lg dark:text-gray-900">Small</span>
             </label>
           </li>
           <li className="mb-4">
@@ -236,14 +246,20 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`size=${Number(e.target.value)}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="7"
+                value="medium"
+                name="size"
               />
-              <span className="text-lg dark:text-gray-900">7</span>
+              <span className="text-lg dark:text-gray-900">Medium</span>
             </label>
           </li>
           <li className="mb-4">
@@ -251,20 +267,26 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`size=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="45"
+                value="large"
+                name="size"
               />
-              <span className="text-lg dark:text-gray-900">45</span>
+              <span className="text-lg dark:text-gray-900">Large</span>
             </label>
           </li>
         </ul>
       </div>
-      <div className="p-4 mb-5 bg-white border border-gray-200  dark:border-gray-900">
-        <h2 className="text-2xl font-bold dark:text-gray-900">Material</h2>
+      <div className="p-4 mb-5 bg-white border border-[#f04336]">
+        <h2 className="text-2xl font-bold dark:text-gray-900">Location</h2>
         <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
         <ul>
           <li className="mb-4">
@@ -272,14 +294,20 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`material=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Leather"
+                value="Dhaka"
+                name="location"
               />
-              <span className="text-lg dark:text-gray-900">Leather</span>
+              <span className="text-lg dark:text-gray-900">Dhaka</span>
             </label>
           </li>
           <li className="mb-4">
@@ -287,14 +315,20 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`material=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Mesh"
+                value="Khilgoa"
+                name="location"
               />
-              <span className="text-lg dark:text-gray-900">Mesh</span>
+              <span className="text-lg dark:text-gray-900">Khilgoa</span>
             </label>
           </li>
           <li className="mb-4">
@@ -302,20 +336,26 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`material=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Synthetic"
+                value="comilla"
+                name="location"
               />
-              <span className="text-lg dark:text-gray-900">Synthetic</span>
+              <span className="text-lg dark:text-gray-900">Comilla</span>
             </label>
           </li>
         </ul>
       </div>
-      <div className="p-4 mb-5 bg-white border border-gray-200  dark:border-gray-900">
-        <h2 className="text-2xl font-bold dark:text-gray-900">Closure Type</h2>
+      <div className="p-4 mb-5 bg-white border border-[#f04336]">
+        <h2 className="text-2xl font-bold dark:text-gray-900">Gender</h2>
         <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
         <ul>
           <li className="mb-4">
@@ -323,14 +363,20 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`closure_Type=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Zipper"
+                value="MALE"
+                name="gender"
               />
-              <span className="text-lg dark:text-gray-900">Zipper</span>
+              <span className="text-lg dark:text-gray-900">Male</span>
             </label>
           </li>
           <li className="mb-4">
@@ -338,48 +384,23 @@ const SideFilterSection = () => {
               <input
                 onChange={(e) =>
                   e.target.checked
-                    ? setFilter(`closure_Type=${e.target.value}`)
-                    : setFilter("")
+                    ? dispatch(
+                        addFilter({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      )
+                    : dispatch(removeFilter(e.target.name))
                 }
                 type="checkbox"
                 className="w-4 h-4 mr-2"
-                value="Lace-Up"
+                value="FEMALE"
+                name="gender"
               />
-              <span className="text-lg dark:text-gray-900">Lace-Up</span>
+              <span className="text-lg dark:text-gray-900">Female</span>
             </label>
           </li>
         </ul>
-      </div>
-
-      <div className="p-4 mb-5 bg-white border border-gray-200  dark:border-gray-900">
-        <h2 className="text-2xl font-bold dark:text-gray-900">Price</h2>
-        <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-        <div>
-          <input
-            type="range"
-            className="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer"
-            min="1"
-            max="500"
-            value={minPrice}
-            onChange={(e) => setMinPrice(Number(e.target.value))}
-          />
-          <input
-            type="range"
-            className="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer"
-            min="1"
-            max="500"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(Number(e.target.value))}
-          />
-          <div className="flex justify-between ">
-            <span className="inline-block text-lg font-bold text-blue-400 ">
-              ${minPrice}
-            </span>
-            <span className="inline-block text-lg font-bold text-blue-400 ">
-              ${maxPrice}
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );

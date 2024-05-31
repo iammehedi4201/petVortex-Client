@@ -1,7 +1,3 @@
 {
-  "/login/page": "app/login/page.js",
-  "/(withCommonLayout)/pets/[petId]/adoption-request/page": "app/(withCommonLayout)/pets/[petId]/adoption-request/page.js",
-  "/(withCommonLayout)/pets/page": "app/(withCommonLayout)/pets/page.js",
-  "/(withCommonLayout)/page": "app/(withCommonLayout)/page.js",
-  "/(withCommonLayout)/pets/[petId]/page": "app/(withCommonLayout)/pets/[petId]/page.js"
+  "/(withDashboardLayout)/dashboard/page": "app/(withDashboardLayout)/dashboard/page.js"
 }

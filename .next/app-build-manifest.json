@@ -1,5 +1,15 @@
 {
   "pages": {
+    "/(withDashboardLayout)/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(withDashboardLayout)/dashboard/page.js"
+    ],
+    "/(withDashboardLayout)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(withDashboardLayout)/layout.js"
+    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -10,50 +20,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
-    ],
-    "/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/login/page.js"
-    ],
-    "/(withCommonLayout)/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(withCommonLayout)/page.css",
-      "static/chunks/app/(withCommonLayout)/page.js"
-    ],
-    "/(withCommonLayout)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(withCommonLayout)/layout.js"
-    ],
-    "/register/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/register/page.js"
-    ],
-    "/(withCommonLayout)/pets/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(withCommonLayout)/pets/page.css",
-      "static/chunks/app/(withCommonLayout)/pets/page.js"
-    ],
-    "/(withCommonLayout)/pets/[petId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(withCommonLayout)/pets/[petId]/page.css",
-      "static/chunks/app/(withCommonLayout)/pets/[petId]/page.js"
-    ],
-    "/(withCommonLayout)/pets/[petId]/loading": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(withCommonLayout)/pets/[petId]/loading.js"
-    ],
-    "/(withCommonLayout)/pets/[petId]/adoption-request/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(withCommonLayout)/pets/[petId]/adoption-request/page.css",
-      "static/chunks/app/(withCommonLayout)/pets/[petId]/adoption-request/page.js"
     ]
   }
 }
