@@ -1,10 +1,5 @@
 {
   "pages": {
-    "/(withDashboardLayout)/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(withDashboardLayout)/dashboard/page.js"
-    ],
     "/(withDashboardLayout)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -20,6 +15,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
+    ],
+    "/(withDashboardLayout)/dashboard/user/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(withDashboardLayout)/dashboard/user/page.js"
     ]
   }
 }

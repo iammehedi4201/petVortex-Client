@@ -17,7 +17,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         {/* Sidebar */}
         <DashboardSidebar />
         {/* Content  */}
-        <div className="h-full ml-14 mt-14 mb-10 md:ml-64">{children}</div>
+        <div className="min-h-screen p-2 sm:p-5 mt-16 sm:mt-24 mb-10 ml-14 md:ml-64 text-black">
+          {children}
+        </div>
       </div>
     </div>
   );
