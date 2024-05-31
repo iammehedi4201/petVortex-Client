@@ -12,8 +12,8 @@ const SideFilterSection = () => {
 
   return (
     <div className="w-full pr-2 lg:w-1/4 lg:block">
-      <div className="p-4 mb-5 bg-white border border-gray-200 dark:border-gray-900 ">
-        <h2 className="text-2xl font-bold dark:text-gray-900"> Brands</h2>
+      <div className="p-4 mb-5 bg-white border border-[#f04336]  ">
+        <h2 className="text-2xl font-bold dark:text-gray-900">species</h2>
         <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
         <ul>
           <li className="mb-4">

@@ -25,14 +25,16 @@ const AdoptionRequestPage = ({ params }: TParams) => {
   const { data: pet, isLoading } = useGetPetByIdQuery(params?.petId);
 
   //: Get my profile
-  const { data: myProfile } = useGetMyProfileQuery("");
+  const { data: myProfile, isLoading: isProfileLoading } =
+    useGetMyProfileQuery("");
 
   //: Create adoption request
   const [createAdoptionRequest] = useCreateAdoptionRequestMutation();
 
   const { data } = useGetAdoptionRequestsQuery("");
   console.log("Adoption Requests", data);
-  
+
+  if (isLoading || isProfileLoading) return <div>Loading...</div>;
 
   const defaultValues = {
     firstName: myProfile?.data?.name,
@@ -46,7 +48,7 @@ const AdoptionRequestPage = ({ params }: TParams) => {
   };
 
   const handleAdoptionRequest: SubmitHandler<FieldValues> = async (data) => {
-    // const toastId = toast.loading("Sending Request...");
+    const toastId = toast.loading("Sending Request...");
     try {
       const adoptionRequestData = {
         petId: params?.petId,
@@ -58,8 +60,7 @@ const AdoptionRequestPage = ({ params }: TParams) => {
       const response = await createAdoptionRequest(
         adoptionRequestData
       ).unwrap();
-
-      console.log("Adoption Request", response);
+      toast.success(response?.message, { id: toastId, duration: 2000 });
     } catch (error: any) {
       toast.error("Failed to send request");
     }

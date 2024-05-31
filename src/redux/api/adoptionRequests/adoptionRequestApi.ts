@@ -17,7 +17,7 @@ const adoptionRequestApi = baseApi.injectEndpoints({
         return {
           url: "/adoption-request",
           method: "POST",
-          body: data,
+          data,
         };
       },
     }),

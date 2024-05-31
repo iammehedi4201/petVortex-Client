@@ -1,16 +1,17 @@
+import { Box } from "@mui/material";
+import Image from "next/image";
+
 const loading = () => {
   return (
-    <div className="space-x-4 min-h-screen flex justify-center items-center">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-10 animate-spin fill-blue-600"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"
-          data-original="#000000"
+    <div className="min-h-screen w-full flex justify-center items-center">
+      <Box>
+        <Image
+          src="https://themebeyond.com/pre/petco-prev/petco-live/img/preloader.gif"
+          width={400}
+          height={400}
+          alt="dog_Loader"
         />
-      </svg>
+      </Box>
     </div>
   );
 };

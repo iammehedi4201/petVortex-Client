@@ -1,21 +1,31 @@
+"use client";
+
 import SectionHeader from "@/components/Shared/SectionHeader/SectionHeader";
 import PetCard from "@/components/Ui/PetsPage/PetCard/PetCard";
 import SideFilterSection from "@/components/Ui/PetsPage/SideFilterSection/SideFilterSection";
 import TopFilterSection from "@/components/Ui/PetsPage/TopFilterSection/TopFilterSection";
+import { useGetAllPetsQuery } from "@/redux/api/pet/petApi";
 import { TPet } from "@/types";
 import { Box } from "@mui/material";
+import Image from "next/image";
 
-async function getPets() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/pets`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data;
-}
+const Pets = () => {
+  const { data: pets, isLoading: isPetLoading } = useGetAllPetsQuery("");
 
-const Pets = async () => {
-  const { data: pets } = await getPets();
-  console.log("pets", pets);
+  if (isPetLoading) {
+    return (
+      <div className="min-h-screen w-full flex justify-center items-center">
+        <Box>
+          <Image
+            src="https://themebeyond.com/pre/petco-prev/petco-live/img/preloader.gif"
+            width={400}
+            height={400}
+            alt="dog_Loader"
+          />
+        </Box>
+      </div>
+    );
+  }
 
   return (
     <Box>
@@ -41,7 +51,7 @@ const Pets = async () => {
                 {/* {products?.data.map((item: TProduct) => (
                     <Product key={item._id} {...item}></Product>
                   ))} */}
-                {pets.map((pet: TPet) => (
+                {pets?.data.map((pet: TPet) => (
                   <PetCard key={pet.id} pet={pet} />
                 ))}
               </div>
