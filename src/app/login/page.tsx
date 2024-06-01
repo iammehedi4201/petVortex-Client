@@ -14,23 +14,23 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 //: Register Validation Schema
-export const loginValidationSchema = z.object({
-  email: z.string().email({
-    message: "Invalid Email",
-  }),
-  password: z.string({
-    message: "Password is required",
-  }),
-});
+// export const loginValidationSchema = z.object({
+//   email: z.string().email({
+//     message: "Invalid Email",
+//   }),
+//   password: z.string({
+//     message: "Password is required",
+//   }),
+// });
 
 //: Default Values
-export const defaultValues = {
-  email: "iammehedi296@gmail.com",
-  password: "586258",
-};
+// export const defaultValues = {
+//   email: "iammehedi296@gmail.com",
+//   password: "586258",
+// };
 
 const LoginPage = () => {
-  let text = "Don&apos;t have an account?";
+  let text = "Not have an account?";
   const router = useRouter();
 
   const handleLogin: SubmitHandler<FieldValues> = async (data) => {
@@ -71,8 +71,6 @@ const LoginPage = () => {
         <div className="mx-4 mb-4 -mt-16">
           <PForm
             onSubmit={handleLogin}
-            defaultValues={defaultValues}
-            resolver={zodResolver(loginValidationSchema)}
             className="max-w-4xl mx-auto bg-white shadow-[0_2px_18px_-3px_rgba(6,81,237,0.4)] sm:p-8 p-4 rounded-md"
           >
             <div className="grid md:grid-cols-2 md:gap-12 gap-7">

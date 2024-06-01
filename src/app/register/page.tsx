@@ -18,45 +18,45 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const img_hosting_token = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_TOKEN;
 
 //: Register Validation Schema
-export const registerValidationSchema = z
-  .object({
-    name: z.string({
-      message: "Name is required",
-    }),
-    contactNo: z.string({
-      message: "Contact No is required",
-    }),
-    userName: z.string().min(3).max(255, {
-      message: "User Name should be between 3 to 255 characters",
-    }),
-    email: z.string().email({
-      message: "Invalid Email",
-    }),
-    password: z.string({
-      message: "Password is required",
-    }),
-    confirmPassword: z.string({
-      message: "Confirm Password is required",
-    }),
-    profilePicture: z.string({
-      message: "Profile Picture is required",
-    }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Password and Confirm Password should be same",
-    path: ["confirmPassword"],
-  });
+// export const registerValidationSchema = z
+//   .object({
+//     name: z.string({
+//       message: "Name is required",
+//     }),
+//     contactNo: z.string({
+//       message: "Contact No is required",
+//     }),
+//     userName: z.string().min(3).max(255, {
+//       message: "User Name should be between 3 to 255 characters",
+//     }),
+//     email: z.string().email({
+//       message: "Invalid Email",
+//     }),
+//     password: z.string({
+//       message: "Password is required",
+//     }),
+//     confirmPassword: z.string({
+//       message: "Confirm Password is required",
+//     }),
+//     profilePicture: z.string({
+//       message: "Profile Picture is required",
+//     }),
+//   })
+//   .refine((data) => data.password === data.confirmPassword, {
+//     message: "Password and Confirm Password should be same",
+//     path: ["confirmPassword"],
+//   });
 
 //: Default Values
-export const defaultValues = {
-  name: "",
-  contactNo: "",
-  userName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  profilePicture: "",
-};
+// export const defaultValues = {
+//   name: "",
+//   contactNo: "",
+//   userName: "",
+//   email: "",
+//   password: "",
+//   confirmPassword: "",
+//   profilePicture: "",
+// };
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -119,8 +119,6 @@ const RegisterPage = () => {
         <div className="mx-4 mb-4 -mt-16">
           <PForm
             onSubmit={handleRegister}
-            defaultValues={defaultValues}
-            resolver={zodResolver(registerValidationSchema)}
             className="max-w-4xl mx-auto bg-white shadow-[0_2px_18px_-3px_rgba(6,81,237,0.4)] sm:p-8 p-4 rounded-md"
           >
             <div className="grid md:grid-cols-2 md:gap-12 gap-7">

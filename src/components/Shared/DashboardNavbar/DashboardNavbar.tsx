@@ -8,7 +8,7 @@ type DashboardNavbarProps = {
 const DashboardNavbar = ({ isDark, toggleTheme }: DashboardNavbarProps) => {
   return (
     <div
-      className={`fixed w-full flex items-center justify-between h-14 md:h-24 text-black z-10 shadow-xl`}
+      className={`fixed w-full flex items-center justify-between h-14 md:h-24 text-black z-50 shadow-xl`}
     >
       <div className="flex  items-center justify-start md:justify-center  w-14 h-14  md:w-64 md:h-20 bg-white">
         <Image
