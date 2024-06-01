@@ -7,35 +7,41 @@ import {
 } from "@/redux/api/user/userApi";
 import { Box, Button } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
 const ProfilePage = () => {
-  const { data: myProfile, isLoading: isProfileLoading } =
-    useGetMyProfileQuery("");
-
-  const [updateProfile, { data }] = useUpdateMyProfileMutation();
-
-  console.log("My Profile", myProfile);
-
-  const handleUpdateProfile: SubmitHandler<FieldValues> = (data) => {
-    const tostId = toast.loading("Updating Profile...");
-    try {
-      updateProfile(data);
-      toast.success("Profile Updated Successfully", {
-        id: tostId,
-        duration: 3000,
-      });
-    } catch (error: any) {
-      toast.error(error.message, { id: tostId, duration: 3000 });
-    }
-  };
+  const {
+    data: myProfile,
+    isLoading: isProfileLoading,
+    refetch,
+  } = useGetMyProfileQuery("");
+  const [updateProfile, { data, isLoading: isUpdateprofileloading }] =
+    useUpdateMyProfileMutation({});
 
   const defaultValues = {
     name: myProfile?.data?.name || "",
     userName: myProfile?.data?.userName || "",
     email: myProfile?.data?.email || "",
     contactNo: myProfile?.data?.contactNo || "",
+  };
+
+  const handleUpdateProfile: SubmitHandler<FieldValues> = async (data) => {
+    const tostId = toast.loading("Updating Profile...");
+    try {
+      console.log("profile data", data);
+
+      const response = await updateProfile(data).unwrap();
+      refetch();
+
+      toast.success(response?.message, {
+        id: tostId,
+        duration: 3000,
+      });
+    } catch (error: any) {
+      toast.error(error.message, { id: tostId, duration: 3000 });
+    }
   };
 
   if (isProfileLoading) {
@@ -77,7 +83,10 @@ const ProfilePage = () => {
                   <Image
                     width={1080}
                     height={720}
-                    src="https://i.ibb.co/wr4zkmV/281239749-3270015616561936-7006385574087797627-n-1.jpg"
+                    src={
+                      myProfile?.data?.profilePicture ||
+                      "https://i.ibb.co/7bGpY2g/IMG-20211010-131853.jpg"
+                    }
                     alt="User Profile"
                     className="rounded-md lg:w-[12rem] lg:h-[12rem] md:w-[10rem] md:h-[10rem] sm:w-[8rem] sm:h-[8rem] xs:w-[7rem] xs:h-[7rem]  relative lg:bottom-[5rem] sm:bottom-[4rem] xs:bottom-[3rem]"
                   />
@@ -142,6 +151,15 @@ const ProfilePage = () => {
                 </Button>
               </div>
             </PForm>
+            <p className="text-sm mt-6 text-center">
+              Do you Change Password?{" "}
+              <Link
+                href="/dashboard/user/change-password"
+                className="text-blue-600 font-semibold hover:underline ml-1"
+              >
+                Change Password
+              </Link>
+            </p>
           </div>
         </div>
       </div>
