@@ -1,11 +1,57 @@
 "use client";
 import PForm from "@/components/Forms/PForm";
 import PInput from "@/components/Forms/PInput";
-import { Button } from "@mui/material";
+import {
+  useGetMyProfileQuery,
+  useUpdateMyProfileMutation,
+} from "@/redux/api/user/userApi";
+import { Box, Button } from "@mui/material";
 import Image from "next/image";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
-const page = () => {
-  const handleUpdateProfile = (data: any) => {};
+const ProfilePage = () => {
+  const { data: myProfile, isLoading: isProfileLoading } =
+    useGetMyProfileQuery("");
+
+  const [updateProfile, { data }] = useUpdateMyProfileMutation();
+
+  console.log("My Profile", myProfile);
+
+  const handleUpdateProfile: SubmitHandler<FieldValues> = (data) => {
+    const tostId = toast.loading("Updating Profile...");
+    try {
+      updateProfile(data);
+      toast.success("Profile Updated Successfully", {
+        id: tostId,
+        duration: 3000,
+      });
+    } catch (error: any) {
+      toast.error(error.message, { id: tostId, duration: 3000 });
+    }
+  };
+
+  const defaultValues = {
+    name: myProfile?.data?.name || "",
+    userName: myProfile?.data?.userName || "",
+    email: myProfile?.data?.email || "",
+    contactNo: myProfile?.data?.contactNo || "",
+  };
+
+  if (isProfileLoading) {
+    return (
+      <div className="min-h-screen w-full flex justify-center items-center">
+        <Box>
+          <Image
+            src="https://themebeyond.com/pre/petco-prev/petco-live/img/preloader.gif"
+            width={400}
+            height={400}
+            alt="dog_Loader"
+          />
+        </Box>
+      </div>
+    );
+  }
 
   return (
     <section className="py-10 my-auto">
@@ -15,7 +61,7 @@ const page = () => {
             <h1 className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 text-black">
               Profile
             </h1>
-            <PForm onSubmit={handleUpdateProfile}>
+            <PForm onSubmit={handleUpdateProfile} defaultValues={defaultValues}>
               <div className="flex flex-col">
                 {/* <!-- Cover Image --> */}
                 <Image
@@ -89,9 +135,10 @@ const page = () => {
                   />
                 </div>
               </div>
-              <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
-                <Button type="submit" className="w-full p-4">
-                  Submit
+
+              <div className="rounded-lg mt-4 text-white text-lg font-semibold">
+                <Button type="submit" className="p-4">
+                  Update Profile
                 </Button>
               </div>
             </PForm>
@@ -102,4 +149,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfilePage;

@@ -895,6 +895,12 @@ video {
 .w-px {
   width: 1px;
 }
+.w-1 {
+  width: 0.25rem;
+}
+.w-1\.5 {
+  width: 0.375rem;
+}
 .min-w-\[400px\] {
   min-width: 400px;
 }
@@ -1878,6 +1884,10 @@ video {
 
   .md\:h-\[16rem\] {
     height: 16rem;
+  }
+
+  .md\:h-28 {
+    height: 7rem;
   }
 
   .md\:w-24 {

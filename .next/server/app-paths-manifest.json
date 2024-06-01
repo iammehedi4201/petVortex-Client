@@ -1,4 +1,7 @@
 {
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/(withDashboardLayout)/dashboard/user/page": "app/(withDashboardLayout)/dashboard/user/page.js"
+  "/login/page": "app/login/page.js",
+  "/(withCommonLayout)/pets/page": "app/(withCommonLayout)/pets/page.js",
+  "/(withCommonLayout)/pets/[petId]/page": "app/(withCommonLayout)/pets/[petId]/page.js",
+  "/(withCommonLayout)/pets/[petId]/adoption-request/page": "app/(withCommonLayout)/pets/[petId]/adoption-request/page.js",
+  "/(withDashboardLayout)/dashboard/user/profile/page": "app/(withDashboardLayout)/dashboard/user/profile/page.js"
 }

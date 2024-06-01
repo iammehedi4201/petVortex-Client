@@ -15,7 +15,7 @@ const DashboardNavbar = ({ isDark, toggleTheme }: DashboardNavbarProps) => {
           alt="admin"
           width={500}
           height={500}
-          className="w-7 h-7 md:w-24 md:h-32 mr-2 rounded-md overflow-hidden p-5"
+          className="w-7 h-7 md:w-24 md:h-28 mr-2 rounded-md overflow-hidden p-5"
           src="https://i.ibb.co/wr4zkmV/281239749-3270015616561936-7006385574087797627-n-1.jpg"
         />
       </div>

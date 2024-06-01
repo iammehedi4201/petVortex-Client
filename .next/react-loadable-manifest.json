@@ -1,1 +1,14 @@
-{}
+{
+  "components\\Shared\\Navbar\\Navbar.tsx -> @/components/Ui/AuthButton/AuthButton": {
+    "id": "components\\Shared\\Navbar\\Navbar.tsx -> @/components/Ui/AuthButton/AuthButton",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_Ui_AuthButton_AuthButton_tsx.js"
+    ]
+  },
+  "components\\Shared\\Navbar\\Navbar.tsx -> @/components/Ui/UserProfile/UserProfile": {
+    "id": "components\\Shared\\Navbar\\Navbar.tsx -> @/components/Ui/UserProfile/UserProfile",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_Ui_UserProfile_UserProfile_tsx.js"
+    ]
+  }
+}

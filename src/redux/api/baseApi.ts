@@ -7,5 +7,5 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:4000/api" }),
   endpoints: () => ({}),
-  tagTypes: ["pets"],
+  tagTypes: ["pets", "user"],
 });
