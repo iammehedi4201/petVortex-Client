@@ -1,6 +1,7 @@
 "use client";
 import { useGetMyProfileQuery } from "@/redux/api/user/userApi";
-import { removeUser } from "@/services/auth.services";
+import { getUserInfo, removeUser } from "@/services/auth.services";
+import { getFromLocalStorage } from "@/utils/local_storage";
 import {
   Box,
   Button,
@@ -20,6 +21,7 @@ import { useState } from "react";
 
 const Navbar = () => {
   const router = useRouter();
+  const userInfo = getUserInfo();
   //: Dynamic import for AuthButton and UserProfile
   const AuthButtonComponent = dynamic(
     () => import("@/components/Ui/AuthButton/AuthButton"),
@@ -260,7 +262,7 @@ const Navbar = () => {
 
               <li>
                 <Link
-                  href={"/dashboard/adminhome"}
+                  href={`/dashboard/${userInfo?.role}/`}
                   className="block py-2 pl-3 pr-4 text-black rounded  hover:text-orange-500 "
                 >
                   Dashboard

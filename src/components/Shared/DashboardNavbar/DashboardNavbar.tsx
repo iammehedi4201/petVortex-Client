@@ -1,3 +1,4 @@
+import { useGetMyProfileQuery } from "@/redux/api/user/userApi";
 import Image from "next/image";
 
 type DashboardNavbarProps = {
@@ -6,6 +7,8 @@ type DashboardNavbarProps = {
 };
 
 const DashboardNavbar = ({ isDark, toggleTheme }: DashboardNavbarProps) => {
+  const { data: myProfile } = useGetMyProfileQuery("");
+
   return (
     <div
       className={`fixed w-full flex items-center justify-between h-14 md:h-24 text-black z-50 shadow-xl`}
@@ -15,12 +18,14 @@ const DashboardNavbar = ({ isDark, toggleTheme }: DashboardNavbarProps) => {
           alt="admin"
           width={500}
           height={500}
-          className="w-7 h-7 md:w-24 md:h-28 mr-2 rounded-md overflow-hidden p-5"
-          src="https://i.ibb.co/wr4zkmV/281239749-3270015616561936-7006385574087797627-n-1.jpg"
+          className="w-7 h-7 md:w-24 md:h-24 mr-2 rounded-md overflow-hidden p-5"
+          src={myProfile?.data?.profilePicture}
         />
       </div>
       <div className="hidden md:block ml-[-56%]">
-        <h1 className="text-gray-400 font-bold">Hi, MD Mehedi Hasan </h1>
+        <h1 className="text-gray-400 font-bold">
+          Hi, MD {myProfile?.data?.name}
+        </h1>
         <h1 className="text-[#f04336] font-extrabold text-2xl">
           Welcome to PetVortex
         </h1>
