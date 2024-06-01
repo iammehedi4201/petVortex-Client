@@ -22,10 +22,7 @@ const ProfilePage = () => {
     const tostId = toast.loading("Updating Profile...");
     try {
       updateProfile(data);
-      toast.success("Profile Updated Successfully", {
-        id: tostId,
-        duration: 3000,
-      });
+     
     } catch (error: any) {
       toast.error(error.message, { id: tostId, duration: 3000 });
     }
