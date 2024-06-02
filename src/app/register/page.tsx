@@ -242,7 +242,7 @@ const RegisterPage = () => {
                 label="Upload Profile Pic"
                 sx={{
                   backgroundColor: "#3c79e6",
-                  width: "100%",
+                  
                   my: 3,
                 }}
               />

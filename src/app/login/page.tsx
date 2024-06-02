@@ -24,10 +24,10 @@ import { z } from "zod";
 // });
 
 //: Default Values
-// export const defaultValues = {
-//   email: "iammehedi296@gmail.com",
-//   password: "586258",
-// };
+export const defaultValues = {
+  email: "",
+  password: "",
+};
 
 const LoginPage = () => {
   let text = "Not have an account?";
@@ -71,6 +71,7 @@ const LoginPage = () => {
         <div className="mx-4 mb-4 -mt-16">
           <PForm
             onSubmit={handleLogin}
+            defaultValues={defaultValues}
             className="max-w-4xl mx-auto bg-white shadow-[0_2px_18px_-3px_rgba(6,81,237,0.4)] sm:p-8 p-4 rounded-md"
           >
             <div className="grid md:grid-cols-2 md:gap-12 gap-7">

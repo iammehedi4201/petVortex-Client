@@ -1,11 +1,11 @@
 import { getUserInfo } from "@/services/auth.services";
 import Link from "next/link";
 
-const UserSidebarItem = () => {
+const AdminSidebarItem = () => {
   const userInfo = getUserInfo();
   return (
     <>
-      {userInfo?.role === "user" && (
+      {userInfo?.role === "admin" && (
         <ul className="flex flex-col py-4 space-y-1">
           <li className="px-5 hidden md:block">
             <div className="flex flex-row items-center h-8">
@@ -43,6 +43,60 @@ const UserSidebarItem = () => {
           </li>
           <li>
             <Link
+              href="/dashboard/admin/addPet"
+              className="relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800  border-r-4 border-transparent hover:border-[#f04336] hover:bg-orange-50 pr-6"
+            >
+              <span className="inline-flex justify-center items-center ml-4 mb-1">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  color="#f04336"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+                  ></path>
+                </svg>
+              </span>
+              <span className="ml-2 text-md tracking-wide truncate font-bold">
+                Manage Users
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/dashboard/admin/addPet"
+              className="relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800  border-r-4 border-transparent hover:border-[#f04336] hover:bg-orange-50 pr-6"
+            >
+              <span className="inline-flex justify-center items-center ml-4 mb-1">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  color="#f04336"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+                  ></path>
+                </svg>
+              </span>
+              <span className="ml-2 text-md tracking-wide truncate font-bold">
+                Add Pet
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/dashboard/user/my-adoption-requests"
               className="relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800  border-r-4 border-transparent hover:border-[#f04336] hover:bg-orange-50 pr-6"
             >
@@ -64,11 +118,37 @@ const UserSidebarItem = () => {
                 </svg>
               </span>
               <span className="ml-2 text-md tracking-wide truncate font-bold">
-                My Adoption Request
+                Manage Pets
               </span>
             </Link>
           </li>
-
+          <li>
+            <Link
+              href="/dashboard/user/my-adoption-requests"
+              className="relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800  border-r-4 border-transparent hover:border-[#f04336] hover:bg-orange-50 pr-6"
+            >
+              <span className="inline-flex justify-center items-center ml-4 mb-1">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  color="#f04336"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+                  ></path>
+                </svg>
+              </span>
+              <span className="ml-2 text-md tracking-wide truncate font-bold">
+                Manage A.Requests
+              </span>
+            </Link>
+          </li>
           <li className="px-5 hidden md:block">
             <div className="flex flex-row items-center mt-5 h-8">
               <div className="text-sm font-light tracking-wide text-gray-400 uppercase border-b-2 ">
@@ -142,4 +222,4 @@ const UserSidebarItem = () => {
   );
 };
 
-export default UserSidebarItem;
+export default AdminSidebarItem;

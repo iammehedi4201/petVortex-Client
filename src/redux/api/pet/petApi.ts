@@ -22,6 +22,7 @@ const petApi = baseApi.injectEndpoints({
           meta: response?.meta,
         };
       },
+      providesTags: ["pets"],
     }),
     getPetById: builder.query({
       query: (id: string) => {
@@ -30,9 +31,22 @@ const petApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["pets"],
+    }),
+
+    addPet: builder.mutation({
+      query: (data) => {
+        return {
+          url: `/pets`,
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["pets"],
     }),
   }),
   overrideExisting: true,
 });
 
-export const { useGetAllPetsQuery, useGetPetByIdQuery } = petApi;
+export const { useGetAllPetsQuery, useGetPetByIdQuery, useAddPetMutation } =
+  petApi;

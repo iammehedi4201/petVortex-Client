@@ -1,7 +1,13 @@
 import { Box, Container, Typography } from "@mui/material";
 import style from "./style.module.css";
 
-const SectionHeader = ({ HeaderTitle }: { HeaderTitle: string }) => {
+const SectionHeader = ({
+  HeaderTitle,
+  subTitle,
+}: {
+  HeaderTitle: string;
+  subTitle?: string;
+}) => {
   return (
     <Box
       sx={{
@@ -35,7 +41,7 @@ const SectionHeader = ({ HeaderTitle }: { HeaderTitle: string }) => {
             fontWeight={600}
             ml={2}
           >
-            Home |
+            {subTitle || "Home"} |
           </Typography>{" "}
           {HeaderTitle}
         </Typography>

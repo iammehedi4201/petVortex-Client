@@ -11,6 +11,14 @@ const adoptionRequestApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getAdoptionRequestBaseOnUser: builder.query({
+      query: () => {
+        return {
+          url: `/adoption-request/user`,
+          method: "GET",
+        };
+      },
+    }),
     createAdoptionRequest: builder.mutation({
       query: (data) => {
         console.log("data", data);
@@ -24,5 +32,8 @@ const adoptionRequestApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateAdoptionRequestMutation, useGetAdoptionRequestsQuery } =
-  adoptionRequestApi;
+export const {
+  useCreateAdoptionRequestMutation,
+  useGetAdoptionRequestsQuery,
+  useGetAdoptionRequestBaseOnUserQuery,
+} = adoptionRequestApi;

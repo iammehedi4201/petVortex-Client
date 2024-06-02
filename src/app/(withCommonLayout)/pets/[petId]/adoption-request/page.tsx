@@ -11,6 +11,7 @@ import { useGetPetByIdQuery } from "@/redux/api/pet/petApi";
 import { useGetMyProfileQuery } from "@/redux/api/user/userApi";
 import { Box, Button, Container } from "@mui/material";
 import Image from "next/image";
+import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -21,6 +22,8 @@ type TParams = {
 };
 
 const AdoptionRequestPage = ({ params }: TParams) => {
+  const [disableValue, seDisable] = useState(true);
+
   //: Get pet by id
   const { data: pet, isLoading } = useGetPetByIdQuery(params?.petId);
 
@@ -366,10 +369,39 @@ const AdoptionRequestPage = ({ params }: TParams) => {
                         />
                       </div>
 
-                      <div className="flex gap-4 max-md:flex-col mt-8">
+                      <div className="flex items-start my-5">
+                        <div className="flex items-center h-5">
+                          <input
+                            id="newsletter"
+                            aria-describedby="newsletter"
+                            type="checkbox"
+                            onChange={(e) => seDisable(!disableValue)}
+                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                          />
+                        </div>
+                        <div className="ml-3 text-sm">
+                          <label className="font-light text-gray-900 ">
+                            I accept the{" "}
+                            <a
+                              className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                              href="#"
+                            >
+                              Terms and Conditions
+                            </a>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-4 max-md:flex-col mt-5">
                         <Button
+                          disabled={disableValue}
                           type="submit"
                           className="rounded-md px-4 py-3 w-full text-sm font-semibold bg-gray-800 text-white hover:bg-gray-900"
+                          sx={{
+                            "&:hover": {
+                              backgroundColor: "black",
+                            },
+                          }}
                         >
                           Send Request
                         </Button>
