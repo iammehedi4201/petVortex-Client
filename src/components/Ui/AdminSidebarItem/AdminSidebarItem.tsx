@@ -97,7 +97,7 @@ const AdminSidebarItem = () => {
           </li>
           <li>
             <Link
-              href="/dashboard/user/my-adoption-requests"
+              href="/dashboard/admin/managePets"
               className="relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800  border-r-4 border-transparent hover:border-[#f04336] hover:bg-orange-50 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4 mb-1">

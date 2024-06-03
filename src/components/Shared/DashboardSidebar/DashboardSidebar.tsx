@@ -1,4 +1,3 @@
-import AdminSidebarItem from "@/components/Ui/AdminSidebarItem/AdminSidebarItem";
 import dynamic from "next/dynamic";
 
 const DashboardSidebar = () => {

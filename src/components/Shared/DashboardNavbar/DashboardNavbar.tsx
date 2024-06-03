@@ -1,11 +1,19 @@
 import { useGetMyProfileQuery } from "@/redux/api/user/userApi";
 import { removeUser } from "@/services/auth.services";
 import { Box, Button, Typography } from "@mui/material";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
 const DashboardNavbar = () => {
+  //:router
   const router = useRouter();
+  //: get my profile
   const { data: myProfile } = useGetMyProfileQuery("");
+  //:AuthButton
+  const AuthButton = dynamic(
+    () => import("@/components/Ui/AuthButton/AuthButton"),
+    { ssr: false }
+  );
 
   return (
     <div
@@ -51,11 +59,13 @@ const DashboardNavbar = () => {
       </div>
       <div className="flex justify-between items-center h-14 bg-white header-right">
         <ul className="flex items-center ">
+          {/* <AuthButton/> */}
           <li className="mx-2">
             <Button
               onClick={() => {
                 removeUser();
                 router.push("/");
+                router.refresh();
               }}
               className="flex items-center mr-4 hover:text-blue-100"
             >

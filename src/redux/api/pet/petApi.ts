@@ -39,7 +39,7 @@ const petApi = baseApi.injectEndpoints({
         return {
           url: `/pets`,
           method: "POST",
-          body: data,
+          data,
         };
       },
       invalidatesTags: ["pets"],

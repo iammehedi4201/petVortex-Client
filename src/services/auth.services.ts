@@ -7,7 +7,6 @@ import {
 } from "@/utils/local_storage";
 
 export const storeUserInfo = (accessToken: string) => {
-  console.log("accessToken: ", accessToken);
   return setToLocalStorage(authKey, accessToken);
 };
 
@@ -25,7 +24,6 @@ export const getUserInfo = () => {
 
 export const isLoggedIn = () => {
   const authToken = getFromLocalStorage(authKey);
-  console.log("authToken: ", authToken);
   if (authToken) {
     return !!authToken;
   }

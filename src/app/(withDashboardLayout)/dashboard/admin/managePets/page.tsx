@@ -1,4 +1,5 @@
 "use client";
+import SectionHeader from "@/components/Shared/SectionHeader/SectionHeader";
 import { useGetAdoptionRequestBaseOnUserQuery } from "@/redux/api/adoptionRequests/adoptionRequestApi";
 import { Box, TablePagination } from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -52,7 +53,7 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export default function MyAdoptionRequests() {
+export default function ManagePets() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -65,6 +66,7 @@ export default function MyAdoptionRequests() {
 
   return (
     <>
+      <SectionHeader HeaderTitle="Manage" subTitle="Dashboard" />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
@@ -73,8 +75,8 @@ export default function MyAdoptionRequests() {
               <StyledTableCell align="left">Pet Name</StyledTableCell>
               <StyledTableCell align="left">Specis</StyledTableCell>
               <StyledTableCell align="left">Age</StyledTableCell>
-              <StyledTableCell align="left">Status</StyledTableCell>
-              <StyledTableCell align="left">Adoption Date</StyledTableCell>
+              <StyledTableCell align="left">Location</StyledTableCell>
+              <StyledTableCell align="left">Action</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -116,7 +118,7 @@ export default function MyAdoptionRequests() {
                   {adoptionRequest?.status}
                 </StyledTableCell>
                 <StyledTableCell align="left">
-                  {/* {new Date(adoptionRequest?.createdAt).toLocaleDateString()} */}
+                  {new Date(adoptionRequest?.createdAt).toLocaleDateString()}
                 </StyledTableCell>
               </StyledTableRow>
             ))}

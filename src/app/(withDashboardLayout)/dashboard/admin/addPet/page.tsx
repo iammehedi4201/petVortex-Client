@@ -1,67 +1,69 @@
 "use client";
-import PHFileUploader from "@/components/Forms/PFileUploader";
 import PForm from "@/components/Forms/PForm";
 import PInput from "@/components/Forms/PInput";
 import PSelectField from "@/components/Forms/PSelect";
 import SectionHeader from "@/components/Shared/SectionHeader/SectionHeader";
-import { petSizeOptions } from "@/constant/pet";
+import { genderOptions } from "@/constant/common";
+import {
+  petHealthStatus,
+  petSizeOptions,
+  petTemperamentOptions,
+} from "@/constant/pet";
 import { useAddPetMutation } from "@/redux/api/pet/petApi";
+import { uploadImgToIMGBB } from "@/utils/uploadImgToIMGBB";
 import { Box, Button } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
-//: Image Hosting Token
-const img_hosting_token = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_TOKEN;
-
 //: Default Values
-// export const defaultValues = {
-//   name: "",
-//   contactNo: "",
-//   userName: "",
-//   email: "",
-//   password: "",
-//   confirmPassword: "",
-//   profilePicture: "",
-// };
+export const defaultValues = {
+  pet: {
+    name: "Tommy Hill",
+    species: "dog",
+    breed: "german shepan",
+    age: "15",
+    location: "Dhaka",
+    speacialNeeds: "no need",
+    medicalHistory: "good ",
+    adoptionRequirements: "no need",
+    description: "no need",
+  },
+};
 
-const RegisterPage = () => {
+const AddPetPage = () => {
   //: router
   const router = useRouter();
 
   //: add pet mutation
   const [addPet] = useAddPetMutation();
 
-  //: Image Hosting URL
-  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
+  //:File state
+  const [files, setFiles] = useState<any>([]);
 
   //: Handle Register
   const handleAddPet: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Registering...");
+    const toastId = toast.loading("Addingg Pet...");
     try {
-      const formData = new FormData();
-      formData.append("image", data.profilePicture);
-      const imgHostResponse = await axios.post(img_hosting_url, formData);
-      console.log("response", imgHostResponse);
+      const { imgUrls } = await uploadImgToIMGBB(files);
+      const petInfo = {
+        pet: {
+          ...data.pet,
+          age: Number(data.pet.age),
+        },
+        images: imgUrls,
+      };
+      console.log("petInfo", petInfo);
+      //: Add Pet
+      const response = await addPet(petInfo).unwrap();
+      //: Check if response is successful
 
-      if (imgHostResponse?.data?.success) {
-        const petInfo = {
-          name,
-        };
-
-        //: Register User
-        const response = await addPet(petInfo);
-
-        //: Check if response is successful
-        // if (response?.success) {
-        // } else {
-        //   toast.error(response?.errorDetails, { id: toastId, duration: 3000 });
-        // }
-      }
+      toast.error(response?.message, { id: toastId, duration: 3000 });
     } catch (error: any) {
-      toast.error(error?.errorDetails, { id: toastId, duration: 3000 });
+      toast.error(error?.message, { id: toastId, duration: 3000 });
     }
   };
 
@@ -72,9 +74,10 @@ const RegisterPage = () => {
         <div className="mx-4 mb-4">
           <PForm
             onSubmit={handleAddPet}
+            defaultValues={defaultValues}
             className="max-w-6xl mx-auto bg-white shadow-[0_2px_18px_-3px_rgba(6,81,237,0.4)] sm:p-8 p-4 rounded-md"
           >
-            <div className="grid md:grid-cols-2 gap-y-7 gap-x-12">
+            <div className="grid md:grid-cols-2 gap-y-7 gap-x-10">
               <PInput
                 name="pet.name"
                 fullWidth={true}
@@ -105,27 +108,81 @@ const RegisterPage = () => {
                 label="Size*"
                 options={petSizeOptions}
               />
-              <PInput
-                name="confirmPassword"
+              <PSelectField
+                name="pet.gender"
                 fullWidth={true}
-                label="Confirm Password*"
-                placeholder="Enter Your Confirm Password"
-                type="password"
+                label="Gender*"
+                options={genderOptions}
+              />
+              <PInput
+                name="pet.location"
+                fullWidth={true}
+                label="Location*"
+                type="text"
+              />
+              <PSelectField
+                name="pet.temperament"
+                fullWidth={true}
+                label="Temperament*"
+                options={petTemperamentOptions}
+              />
+              <PSelectField
+                name="pet.healthStatus"
+                fullWidth={true}
+                label="Health Status*"
+                options={petHealthStatus}
+              />
+              <PInput
+                name="pet.speacialNeeds"
+                fullWidth={true}
+                label="Speacial Needs*"
+                type="text"
+              />
+              <PInput
+                name="pet.medicalHistory"
+                fullWidth={true}
+                label="MedicalHistory*"
+                type="text"
+              />
+              <PInput
+                name="pet.adoptionRequirements"
+                fullWidth={true}
+                label="Adoption Requirements*"
+                type="text"
               />
             </div>
+            <Box
+              sx={{
+                my: 3,
+              }}
+            >
+              <PInput
+                name="pet.description"
+                fullWidth={true}
+                label="Description*"
+                type="text"
+                size="medium"
+              />
+            </Box>
             <Box
               sx={{
                 width: "100%",
               }}
             >
-              <PHFileUploader
+              {/* <PHFileUploader
                 name="profilePicture"
                 label="Upload Profile Pic"
                 sx={{
                   backgroundColor: "#3c79e6",
-
+                  width: "100%",
                   my: 3,
                 }}
+              /> */}
+              <input
+                onChange={(e) => setFiles(e.target.files)}
+                type="file"
+                multiple
+                placeholder="Upload Image"
               />
             </Box>
             <Box className="!mt-10">
@@ -154,4 +211,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default AddPetPage;

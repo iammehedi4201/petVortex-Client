@@ -8,7 +8,7 @@ import {
 
 type TFormConfig = {
   resolver?: any;
-  defaultValues?: Record<string, any>;
+  defaultValues?: any;
 };
 
 type TPFromProps = {
@@ -24,16 +24,7 @@ const PForm = ({
   defaultValues,
   className,
 }: TPFromProps) => {
-  const formConfig: TFormConfig = {};
-
-  if (resolver) {
-    formConfig["resolver"] = resolver;
-  }
-
-  if (defaultValues) {
-    formConfig["defaultValues"] = defaultValues;
-  }
-  const methods = useForm(formConfig);
+  const methods = useForm({ resolver, defaultValues });
 
   const { handleSubmit, reset } = methods;
 
