@@ -16,7 +16,7 @@ const ProfilePage = () => {
   const {
     data: myProfile,
     isLoading: isProfileLoading,
-    refetch,
+    isFetching: isProfileFetching,
   } = useGetMyProfileQuery("");
 
   //: Update Profile
@@ -36,8 +36,6 @@ const ProfilePage = () => {
       console.log("profile data", data);
 
       const response = await updateProfile(data).unwrap();
-      refetch();
-
       toast.success(response?.message, {
         id: tostId,
         duration: 3000,
@@ -47,7 +45,7 @@ const ProfilePage = () => {
     }
   };
 
-  if (isProfileLoading) {
+  if (isProfileFetching) {
     return (
       <Box
         sx={{

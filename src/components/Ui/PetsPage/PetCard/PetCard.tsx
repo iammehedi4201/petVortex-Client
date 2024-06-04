@@ -68,7 +68,16 @@ const PetCard = ({ pet }: { pet: TPet }) => {
             mt: 2,
           }}
         >
-          <Button LinkComponent={Link} href={`/pets/${pet?.id}`} fullWidth>
+          <Button
+            LinkComponent={Link}
+            href={`/pets/${pet?.id}`}
+            fullWidth
+            sx={{
+              "&:hover": {
+                backgroundColor: "black",
+              },
+            }}
+          >
             See Details
           </Button>
         </Box>

@@ -245,18 +245,10 @@ const Navbar = () => {
 
               <li>
                 <Link
-                  href="/aboutus"
+                  href="/aboutUs"
                   className="block py-2 pl-3 pr-4 text-black   hover:text-orange-500 "
                 >
                   About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contractus"
-                  className="block py-2 pl-3 pr-4 text-black  hover:text-orange-500 "
-                >
-                  Contract Us
                 </Link>
               </li>
 
