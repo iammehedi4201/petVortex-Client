@@ -1,4 +1,3 @@
-import { get } from "http";
 import { baseApi } from "../baseApi";
 
 const adoptionRequestApi = baseApi.injectEndpoints({
@@ -10,6 +9,7 @@ const adoptionRequestApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["adoptionRequests"],
     }),
     getAdoptionRequestBaseOnUser: builder.query({
       query: () => {
@@ -18,6 +18,7 @@ const adoptionRequestApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["adoptionRequests"],
     }),
     createAdoptionRequest: builder.mutation({
       query: (data) => {
@@ -28,6 +29,19 @@ const adoptionRequestApi = baseApi.injectEndpoints({
           data,
         };
       },
+      invalidatesTags: ["adoptionRequests"],
+    }),
+    updateAdoptionRequestStatus: builder.mutation({
+      query: (data) => {
+        console.log("data", data);
+        return {
+          url: `/adoption-request/${data?.id}`,
+          method: "PUT",
+          contentType: "application/json",
+          data: data?.updateInfo,
+        };
+      },
+      invalidatesTags: ["adoptionRequests"],
     }),
   }),
 });
@@ -36,4 +50,5 @@ export const {
   useCreateAdoptionRequestMutation,
   useGetAdoptionRequestsQuery,
   useGetAdoptionRequestBaseOnUserQuery,
+  useUpdateAdoptionRequestStatusMutation,
 } = adoptionRequestApi;

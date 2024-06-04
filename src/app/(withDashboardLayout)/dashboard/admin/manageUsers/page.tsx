@@ -8,11 +8,10 @@ import {
 } from "@/redux/api/pet/petApi";
 import { EditNote } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { toast } from "sonner";
 
 const ManagePetsPage = () => {
@@ -151,7 +150,7 @@ const ManagePetsPage = () => {
   return (
     <>
       <PetViewModal selectedRow={selectedRow} open={open} setOpen={setOpen} />
-      <SectionHeader HeaderTitle="Manage Pets" subTitle="Dashboard" />
+      <SectionHeader HeaderTitle="Manage Users" subTitle="Dashboard" />
       <Box my={10}>
         <Box sx={{ minHeight: "100vh", width: "100%" }}>
           <DataGrid

@@ -10,3 +10,18 @@ export const genderOptions = [
     value: "FEMALE",
   },
 ];
+
+export const statusOptions = [
+  {
+    label: "Pending",
+    value: "PENDING",
+  },
+  {
+    label: "Approved",
+    value: "APPROVED",
+  },
+  {
+    label: "Rejected",
+    value: "REJECTED",
+  },
+];

@@ -1,3 +1,4 @@
+import { Delete } from "@mui/icons-material";
 import { baseApi } from "../baseApi";
 
 const petApi = baseApi.injectEndpoints({
@@ -44,9 +45,34 @@ const petApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["pets"],
     }),
+    updatePetById: builder.mutation({
+      query: (data) => {
+        console.log("petInfo", data);
+        return {
+          url: `/pets/${data?.id}`,
+          method: "PUT",
+          contentType: "application/json",
+          data: data?.petInfo,
+        };
+      },
+      invalidatesTags: ["pets"],
+    }),
+    DeletePetById: builder.mutation({
+      query: (id: string) => {
+        return {
+          url: `/pets/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["pets"],
+    }),
   }),
-  overrideExisting: true,
 });
 
-export const { useGetAllPetsQuery, useGetPetByIdQuery, useAddPetMutation } =
-  petApi;
+export const {
+  useGetAllPetsQuery,
+  useGetPetByIdQuery,
+  useAddPetMutation,
+  useUpdatePetByIdMutation,
+  useDeletePetByIdMutation,
+} = petApi;

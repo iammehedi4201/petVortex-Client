@@ -1,67 +1,50 @@
 "use client";
 
 import SectionHeader from "@/components/Shared/SectionHeader/SectionHeader";
+import AdoptionStausModal from "@/components/Ui/AdoptionStatusModal/AdoptionStatusModal";
 import PetViewModal from "@/components/Ui/PetViewModal/PetViewModal";
 import {
-  useDeletePetByIdMutation,
-  useGetAllPetsQuery,
-} from "@/redux/api/pet/petApi";
+  useGetAdoptionRequestsQuery,
+  useUpdateAdoptionRequestStatusMutation,
+} from "@/redux/api/adoptionRequests/adoptionRequestApi";
+import { useDeletePetByIdMutation } from "@/redux/api/pet/petApi";
 import { EditNote } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { toast } from "sonner";
 
-const ManagePetsPage = () => {
+const ManageAdoptionRequests = () => {
   //: Get all pets
-  const { data: pets, isLoading } = useGetAllPetsQuery("");
+  const { data: adoptionRequests, isLoading: isAdoptionRequestsLoading } =
+    useGetAdoptionRequestsQuery("");
+
+  console.log("adoptionRequests", adoptionRequests);
 
   //: Delete pet
-  const [deletePet] = useDeletePetByIdMutation();
+  const [updateAdoptionRequestStatus] =
+    useUpdateAdoptionRequestStatusMutation();
 
   //: Modal open state
   const [open, setOpen] = React.useState(false);
-
   //: Selected row
   const [selectedRow, setSelectedRow] = React.useState<any>();
 
-  //: Handle delete pet
-  const handleDelete = async (id: string) => {
-    const toastId = toast.loading("Deleting Pet...");
-    try {
-      await deletePet(id).unwrap();
-      toast.success("Pet deleted successfully", {
-        id: toastId,
-        duration: 2000,
-      });
-    } catch (error) {
-      toast.error("Failed to delete pet", { id: toastId, duration: 2000 });
-    }
-  };
-
-  if (isLoading) {
+  if (isAdoptionRequestsLoading) {
     return <div>Loading...</div>;
   }
 
-  const rowsData = pets?.data?.map((pet: any) => ({
-    id: pet.id,
-    name: pet.name,
-    species: pet.species,
-    breed: pet.breed,
-    gender: pet.gender,
-    age: pet.age,
-    location: pet.location,
-    photo: pet.PetImages[0].url,
-    size: pet.size,
-    description: pet.description,
-    temperament: pet.temperament,
-    medicalHistory: pet.medicalHistory,
-    adoptionRequirements: pet.adoptionRequirements,
-    specialNeeds: pet.speacialNeeds,
-    healthStatus: pet.healthStatus,
+  const rowsData = adoptionRequests?.data?.map((adoptRequest: any) => ({
+    id: adoptRequest.id,
+    name: adoptRequest?.user.name,
+    email: adoptRequest?.user.email,
+    contactNo: adoptRequest?.user.contactNo,
+    petName: adoptRequest?.pet?.name,
+    photo: adoptRequest?.pet?.PetImages[0].url,
+    status: adoptRequest?.status,
+    date: new Date(adoptRequest?.createdAt).toLocaleDateString(),
   }));
 
   const columns: GridColDef[] = [
@@ -81,26 +64,39 @@ const ManagePetsPage = () => {
       ),
     },
     {
+      field: "petName",
+      headerName: "Pet Name",
+      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      flex: 1,
+    },
+    {
       field: "name",
       headerName: "Name",
       headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
-      field: "species",
-      headerName: "Species",
+      field: "email",
+      headerName: "Email",
       headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
-      field: "breed",
-      headerName: "Breed",
+      field: "contactNo",
+      headerName: "contactNo",
       headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
-      field: "location",
-      headerName: "Location",
+      field: "status",
+      headerName: "Status",
+      headerClassName:
+        "bg-[#fd7c72] text-white text-lg font-extrabold  text-green-500",
+      flex: 1,
+    },
+    {
+      field: "date",
+      headerName: "Date",
       headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
       flex: 1,
     },
@@ -114,19 +110,7 @@ const ManagePetsPage = () => {
       renderCell: ({ row }) => {
         return (
           <Box>
-            <IconButton
-              onClick={() => handleDelete(row.id)}
-              aria-label="delete"
-            >
-              <DeleteIcon
-                sx={{
-                  color: "red",
-                  fontSize: { xs: "1.5rem", sm: "2rem", md: "2rem" },
-                }}
-              />
-            </IconButton>
-
-            <Tooltip title="Update pet">
+            <Tooltip title="Update Status">
               <IconButton
                 onClick={() => {
                   setOpen(true);
@@ -137,7 +121,7 @@ const ManagePetsPage = () => {
                 <EditNote
                   sx={{
                     color: "red",
-                    fontSize: { xs: "1.5rem", sm: "2rem", md: "2rem" },
+                    fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
                   }}
                 />
               </IconButton>
@@ -150,8 +134,15 @@ const ManagePetsPage = () => {
 
   return (
     <>
-      <PetViewModal selectedRow={selectedRow} open={open} setOpen={setOpen} />
-      <SectionHeader HeaderTitle="Manage Pets" subTitle="Dashboard" />
+      <AdoptionStausModal
+        selectedRow={selectedRow}
+        open={open}
+        setOpen={setOpen}
+      />
+      <SectionHeader
+        HeaderTitle="Manage Adoption Requests"
+        subTitle="Dashboard"
+      />
       <Box my={10}>
         <Box sx={{ minHeight: "100vh", width: "100%" }}>
           <DataGrid
@@ -178,4 +169,4 @@ const ManagePetsPage = () => {
   );
 };
 
-export default ManagePetsPage;
+export default ManageAdoptionRequests;

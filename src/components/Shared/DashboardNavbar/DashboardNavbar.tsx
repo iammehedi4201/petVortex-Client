@@ -2,6 +2,7 @@ import { useGetMyProfileQuery } from "@/redux/api/user/userApi";
 import { removeUser } from "@/services/auth.services";
 import { Box, Button, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const DashboardNavbar = () => {
@@ -30,7 +31,8 @@ const DashboardNavbar = () => {
         >
           <Typography
             variant="h1"
-            component={"h1"}
+            component={Link}
+            href="/"
             sx={{
               fontSize: {
                 xs: "1.3rem", // text-2xl
