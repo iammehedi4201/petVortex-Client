@@ -5,18 +5,21 @@ import {
   useGetMyProfileQuery,
   useUpdateMyProfileMutation,
 } from "@/redux/api/user/userApi";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
 const ProfilePage = () => {
+  //: Get My Profile
   const {
     data: myProfile,
     isLoading: isProfileLoading,
     refetch,
   } = useGetMyProfileQuery("");
+
+  //: Update Profile
   const [updateProfile, { data, isLoading: isUpdateprofileloading }] =
     useUpdateMyProfileMutation({});
 
@@ -46,16 +49,17 @@ const ProfilePage = () => {
 
   if (isProfileLoading) {
     return (
-      <div className="min-h-screen w-full flex justify-center items-center">
-        <Box>
-          <Image
-            src="https://themebeyond.com/pre/petco-prev/petco-live/img/preloader.gif"
-            width={400}
-            height={400}
-            alt="dog_Loader"
-          />
-        </Box>
-      </div>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
     );
   }
 

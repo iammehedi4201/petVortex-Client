@@ -2,6 +2,15 @@ import { baseApi } from "../baseApi";
 
 const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getAllUsers: builder.query({
+      query: () => {
+        return {
+          url: "/",
+          method: "GET",
+        };
+      },
+      providesTags: ["user"],
+    }),
     getMyProfile: builder.query({
       query: () => {
         return {
@@ -22,7 +31,33 @@ const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["user"],
     }),
+    ChangeUserStatus: builder.mutation({
+      query: (data) => {
+        return {
+          url: `/status/${data.id}`,
+          method: "PUT",
+          data: data?.updateStatusInfo,
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
+    changeUserRole: builder.mutation({
+      query: (data) => {
+        return {
+          url: `/role/${data.id}`,
+          method: "PUT",
+          data: data?.role,
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
-export const { useGetMyProfileQuery, useUpdateMyProfileMutation } = userApi;
+export const {
+  useGetAllUsersQuery,
+  useGetMyProfileQuery,
+  useUpdateMyProfileMutation,
+  useChangeUserStatusMutation,
+  useChangeUserRoleMutation,
+} = userApi;

@@ -2,26 +2,20 @@
 
 import SectionHeader from "@/components/Shared/SectionHeader/SectionHeader";
 import AdoptionStausModal from "@/components/Ui/AdoptionStatusModal/AdoptionStatusModal";
-import PetViewModal from "@/components/Ui/PetViewModal/PetViewModal";
 import {
   useGetAdoptionRequestsQuery,
   useUpdateAdoptionRequestStatusMutation,
 } from "@/redux/api/adoptionRequests/adoptionRequestApi";
-import { useDeletePetByIdMutation } from "@/redux/api/pet/petApi";
 import { EditNote } from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, CircularProgress, IconButton, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import React from "react";
-import { toast } from "sonner";
 
 const ManageAdoptionRequests = () => {
   //: Get all pets
   const { data: adoptionRequests, isLoading: isAdoptionRequestsLoading } =
     useGetAdoptionRequestsQuery("");
-
-  console.log("adoptionRequests", adoptionRequests);
 
   //: Delete pet
   const [updateAdoptionRequestStatus] =
@@ -32,19 +26,15 @@ const ManageAdoptionRequests = () => {
   //: Selected row
   const [selectedRow, setSelectedRow] = React.useState<any>();
 
-  if (isAdoptionRequestsLoading) {
-    return <div>Loading...</div>;
-  }
-
   const rowsData = adoptionRequests?.data?.map((adoptRequest: any) => ({
-    id: adoptRequest.id,
+    id: adoptRequest?.id,
     name: adoptRequest?.user.name,
     email: adoptRequest?.user.email,
     contactNo: adoptRequest?.user.contactNo,
     petName: adoptRequest?.pet?.name,
     photo: adoptRequest?.pet?.PetImages[0].url,
     status: adoptRequest?.status,
-    date: new Date(adoptRequest?.createdAt).toLocaleDateString(),
+    date: new Date(adoptRequest?.createdAt)?.toLocaleDateString(),
   }));
 
   const columns: GridColDef[] = [
@@ -131,6 +121,22 @@ const ManageAdoptionRequests = () => {
       },
     },
   ];
+
+  if (isAdoptionRequestsLoading) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <>

@@ -25,3 +25,31 @@ export const statusOptions = [
     value: "REJECTED",
   },
 ];
+
+export const roleOptions = [
+  {
+    label: "Admin",
+    value: "ADMIN",
+  },
+  {
+    label: "User",
+    value: "USER",
+  },
+];
+
+//! Status Enum
+
+export const userStatusOptions = [
+  {
+    label: "Active",
+    value: "ACTIVE",
+  },
+  {
+    label: "Blocked",
+    value: "BLOCKED",
+  },
+  {
+    label: "Deleted",
+    value: "DELETED",
+  },
+];
