@@ -79,7 +79,9 @@ export default function MyAdoptionRequests() {
   return (
     <>
       <SectionHeader HeaderTitle="My Adoption Requests" />
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{
+        my: 4,
+      }}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>

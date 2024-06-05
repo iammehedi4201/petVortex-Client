@@ -1,6 +1,27 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# PetVortex
+
+This is a web application for managing pet adoptions.
+
 ## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+What things you need to install the software and how to install them:
+
+- Node.js
+- npm
+
+### Installing
+
+A step by step series of examples that tell you how to get a development environment running:
+
+1. Clone the repository `git clone repo_link`
+2. Install dependencies with `npm install`
+3. Start the server with `npm run start:dev`
 
 First, run the development server:
 
