@@ -1,6 +1,7 @@
 "use client";
+import SectionHeader from "@/components/Shared/SectionHeader/SectionHeader";
 import { useGetAdoptionRequestBaseOnUserQuery } from "@/redux/api/adoptionRequests/adoptionRequestApi";
-import { Box, TablePagination } from "@mui/material";
+import { Box, CircularProgress, TablePagination } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -60,11 +61,24 @@ export default function MyAdoptionRequests() {
     useGetAdoptionRequestBaseOnUserQuery("");
 
   if (isAdoptionRequestsLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
     <>
+      <SectionHeader HeaderTitle="My Adoption Requests" />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
@@ -116,7 +130,7 @@ export default function MyAdoptionRequests() {
                   {adoptionRequest?.status}
                 </StyledTableCell>
                 <StyledTableCell align="left">
-                  {/* {new Date(adoptionRequest?.createdAt).toLocaleDateString()} */}
+                  {new Date(adoptionRequest?.createdAt).toLocaleDateString()}
                 </StyledTableCell>
               </StyledTableRow>
             ))}
