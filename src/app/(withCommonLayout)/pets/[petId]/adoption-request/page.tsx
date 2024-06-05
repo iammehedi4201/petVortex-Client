@@ -9,11 +9,35 @@ import {
 } from "@/redux/api/adoptionRequests/adoptionRequestApi";
 import { useGetPetByIdQuery } from "@/redux/api/pet/petApi";
 import { useGetMyProfileQuery } from "@/redux/api/user/userApi";
-import { Box, Button, Container } from "@mui/material";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, Button, CircularProgress, Container } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+
+const adoptionRequestValidationSchema = z.object({
+  firstName: z.string().min(1, { message: "First Name is required" }),
+  lastName: z.string().min(1, { message: "Last Name is required" }),
+  email: z.string().email({ message: "Invalid Email" }),
+  contactNo: z.string().min(1, { message: "Contact No. is required" }),
+  address: z.string().min(1, { message: "Address is required" }),
+  city: z.string().min(1, { message: "City is required" }),
+  state: z.string().min(1, { message: "State is required" }),
+  zipCode: z.string().min(1, { message: "Zip Code is required" }),
+});
+
+type DefaultValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  contactNo: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+};
 
 type TParams = {
   params: {
@@ -36,8 +60,6 @@ const AdoptionRequestPage = ({ params }: TParams) => {
 
   const { data } = useGetAdoptionRequestsQuery("");
   console.log("Adoption Requests", data);
-
-  if (isLoading || isProfileLoading) return <div>Loading...</div>;
 
   const defaultValues = {
     firstName: myProfile?.data?.name,
@@ -65,9 +87,30 @@ const AdoptionRequestPage = ({ params }: TParams) => {
       ).unwrap();
       toast.success(response?.message, { id: toastId, duration: 2000 });
     } catch (error: any) {
-      toast.error("Failed to send request");
+      error?.data?.err?.name === "ZodError"
+        ? toast.error(error?.data?.message, { id: toastId, duration: 3000 })
+        : toast.error(error?.data?.errorDetails, {
+            id: toastId,
+            duration: 3000,
+          });
     }
   };
+
+  if (isLoading || isProfileLoading) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Box>
@@ -191,6 +234,7 @@ const AdoptionRequestPage = ({ params }: TParams) => {
                   <PForm
                     onSubmit={handleAdoptionRequest}
                     defaultValues={defaultValues}
+                    resolver={zodResolver(adoptionRequestValidationSchema)}
                     className="mt-8"
                   >
                     <div>

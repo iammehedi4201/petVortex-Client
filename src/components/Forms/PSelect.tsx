@@ -24,14 +24,13 @@ const PSelectField = ({
   fullWidth = true,
   sx,
 }: ITextField) => {
-  const { control, formState } = useFormContext();
-  const isError = formState.errors[name] !== undefined;
+  const { control } = useFormContext();
 
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <TextField
           {...field}
           sx={{
@@ -42,10 +41,8 @@ const PSelectField = ({
           label={label}
           required={required}
           fullWidth={fullWidth}
-          error={isError}
-          helperText={
-            isError ? (formState.errors[name]?.message as string) : ""
-          }
+          error={!!error?.message}
+          helperText={error?.message}
         >
           {options?.map((option: Titems) => (
             <MenuItem key={option.value} value={option.value}>

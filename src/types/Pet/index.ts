@@ -14,7 +14,7 @@ export type TPet = {
   medicalHistory: string;
   adoptionRequirements: string;
   isDeleted: boolean;
-  PetImages: [{ url: string }];
+  PetImages: any;
   createdAt: Date;
   updatedAt: Date;
 };

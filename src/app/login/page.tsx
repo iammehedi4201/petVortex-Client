@@ -6,7 +6,6 @@ import { loginUser } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.services";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button } from "@mui/material";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler } from "react-hook-form";
@@ -15,7 +14,7 @@ import { z } from "zod";
 
 // Login Validation Schema
 const loginValidationSchema = z.object({
-  email: z.string({ message: "userName or email is required" }),
+  email: z.string().min(1, { message: "Email or userName is required" }),
   password: z.string().min(1, { message: "Password is required" }),
 });
 
@@ -51,7 +50,7 @@ const LoginPage = () => {
       toast.success(response?.message, { id: toastId, duration: 3000 });
       router.push("/");
     } else {
-      toast.error(response?.message, { id: toastId, duration: 3000 });
+      toast.error(response?.errorDetails, { id: toastId, duration: 3000 });
     }
     try {
     } catch (error: any) {
@@ -78,11 +77,6 @@ const LoginPage = () => {
           >
             <div className="grid md:grid-cols-2 md:gap-12 gap-7">
               <button
-                onClick={() =>
-                  signIn("google", {
-                    callbackUrl: "http://localhost:3000/",
-                  })
-                }
                 type="button"
                 className="w-full px-4 py-3 flex items-center justify-center rounded-md text-[#333] text-base tracking-wider font-semibold border-none outline-none bg-gray-100 hover:bg-gray-200"
               >

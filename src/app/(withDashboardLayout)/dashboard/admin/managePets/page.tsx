@@ -9,7 +9,7 @@ import {
 import { EditNote } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, CircularProgress, IconButton, Tooltip } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -42,10 +42,6 @@ const ManagePetsPage = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   const rowsData = pets?.data?.map((pet: any) => ({
     id: pet.id,
     name: pet.name,
@@ -69,7 +65,7 @@ const ManagePetsPage = () => {
       field: "photo",
       headerName: "Photo",
       flex: 1,
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       renderCell: ({ row }) => (
         <Image
           src={row?.photo}
@@ -83,31 +79,31 @@ const ManagePetsPage = () => {
     {
       field: "name",
       headerName: "Name",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "species",
       headerName: "Species",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "breed",
       headerName: "Breed",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "location",
       headerName: "Location",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "action",
       headerName: "Action",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -147,6 +143,22 @@ const ManagePetsPage = () => {
       },
     },
   ];
+
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          minHeight: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <>

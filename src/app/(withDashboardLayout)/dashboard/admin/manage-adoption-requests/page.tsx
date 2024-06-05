@@ -42,7 +42,7 @@ const ManageAdoptionRequests = () => {
       field: "photo",
       headerName: "Photo",
       flex: 1,
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       renderCell: ({ row }) => (
         <Image
           src={row?.photo}
@@ -56,44 +56,44 @@ const ManageAdoptionRequests = () => {
     {
       field: "petName",
       headerName: "Pet Name",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "name",
       headerName: "Name",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "email",
       headerName: "Email",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "contactNo",
-      headerName: "contactNo",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerName: "Phone Number",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "status",
       headerName: "Status",
       headerClassName:
-        "bg-[#fd7c72] text-white text-lg font-extrabold  text-green-500",
+        "bg-[#f04336] text-white text-lg font-extrabold  text-green-500",
       flex: 1,
     },
     {
       field: "date",
       headerName: "Date",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "action",
       headerName: "Action",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: "bg-[#f04336] text-white text-lg font-extrabold",
       flex: 1,
       headerAlign: "center",
       align: "center",

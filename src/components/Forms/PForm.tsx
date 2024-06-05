@@ -17,14 +17,24 @@ type TPFromProps = {
   className?: string;
 } & TFormConfig;
 
-const PForm = ({
+const PForm: React.FC<TPFromProps> = ({
   children,
   onSubmit,
   resolver,
   defaultValues,
   className,
-}: TPFromProps) => {
-  const methods = useForm({ resolver, defaultValues });
+}) => {
+  const config: TFormConfig = {};
+
+  if (resolver) {
+    config.resolver = resolver;
+  }
+
+  if (defaultValues) {
+    config.defaultValues = defaultValues;
+  }
+
+  const methods = useForm(config);
 
   const { handleSubmit, reset } = methods;
 

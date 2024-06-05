@@ -92,7 +92,7 @@ const PetDetailsPage = async ({ params }: { params: TPetParams }) => {
                     >
                       {" "}
                       <Image
-                        src={pet?.PetImages[0]?.url}
+                        src={pet?.PetImages[1]?.url}
                         width={500}
                         height={500}
                         alt="Product"
@@ -132,7 +132,7 @@ const PetDetailsPage = async ({ params }: { params: TPetParams }) => {
                     >
                       {" "}
                       <Image
-                        src={pet?.PetImages[0]?.url}
+                        src={pet?.PetImages[1]?.url}
                         width={500}
                         height={500}
                         alt="Product"
@@ -161,7 +161,7 @@ const PetDetailsPage = async ({ params }: { params: TPetParams }) => {
                         fontSize: "1.8rem",
                       }}
                     />
-                    {pet?.location}
+                    {pet?.location || "Location"}
                   </p>
                 </div>
 
@@ -391,7 +391,10 @@ const PetDetailsPage = async ({ params }: { params: TPetParams }) => {
 
                 <div>
                   <div className="flex items-start">
-                    <img
+                    <Image
+                      width={50}
+                      height={50}
+                      alt="profile"
                       src="https://readymadeui.com/team-2.webp"
                       className="w-12 h-12 rounded-full border-2 border-white"
                     />

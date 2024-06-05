@@ -14,7 +14,7 @@ const PetCard = ({ pet }: { pet: TPet }) => {
       <Box
         sx={{
           "& img": {
-            width: "90%",
+            width: "80%",
             height: "30vh",
             margin: "0 auto",
             borderRadius: 2,
@@ -33,9 +33,9 @@ const PetCard = ({ pet }: { pet: TPet }) => {
           width: "90%",
           mx: "auto",
           backgroundColor: "white",
-          p: 2,
-          borderRadius: 2,
-          boxShadow: 2,
+          p: 4,
+          borderRadius: 1,
+          boxShadow: "0px 0px 2px 2px #f04336",
         }}
       >
         <Typography
@@ -52,13 +52,41 @@ const PetCard = ({ pet }: { pet: TPet }) => {
           justifyContent={"space-between"}
           alignItems={"center"}
         >
-          <Typography>Age : {pet.age}</Typography>
-          <Typography>Breed : {pet.breed}</Typography>
+          <Typography
+            sx={{
+              color: "black",
+              fontWeight: 600,
+            }}
+          >
+            Age : {pet.age}
+          </Typography>
+          <Typography
+            sx={{
+              color: "black",
+              fontWeight: 600,
+            }}
+          >
+            Breed : {pet.breed}
+          </Typography>
         </Stack>
         <Divider orientation="horizontal" sx={{ my: 2 }} />
         <Stack direction={"row"} justifyContent={"space-between"}>
-          <Typography>Location : {pet?.location}</Typography>
-          <Typography>{pet.description}</Typography>
+          <Typography
+            sx={{
+              color: "black",
+              fontWeight: 600,
+            }}
+          >
+            Location : {pet?.location}
+          </Typography>
+          <Typography
+            sx={{
+              color: "black",
+              fontWeight: 600,
+            }}
+          >
+            {pet.description}
+          </Typography>
         </Stack>
         <Box
           sx={{
@@ -73,6 +101,8 @@ const PetCard = ({ pet }: { pet: TPet }) => {
             href={`/pets/${pet?.id}`}
             fullWidth
             sx={{
+              color: "white",
+              fontWeight: 800,
               "&:hover": {
                 backgroundColor: "black",
               },

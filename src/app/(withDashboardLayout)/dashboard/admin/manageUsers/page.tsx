@@ -11,7 +11,11 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import React from "react";
 
-const ManageUsersPage = () => {
+const ManageUsersPage = ({
+  showSectionHeader,
+}: {
+  showSectionHeader: boolean;
+}) => {
   //: Get all pets
   const { data: users, isLoading: isUserLoading } = useGetAllUsersQuery("");
 
@@ -60,7 +64,9 @@ const ManageUsersPage = () => {
       field: "photo",
       headerName: "Photo",
       flex: 1,
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: showSectionHeader
+        ? "bg-[#f9fafb]  text-Black text-lg font-extrabold"
+        : "bg-[#f04336]  text-white text-lg font-extrabold",
       renderCell: ({ row }) => (
         <Image
           src={row?.photo}
@@ -74,37 +80,49 @@ const ManageUsersPage = () => {
     {
       field: "name",
       headerName: "Name",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: showSectionHeader
+        ? "bg-[#f9fafb]  text-Black text-lg font-extrabold"
+        : "bg-[#f04336]  text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "email",
       headerName: "Email",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: showSectionHeader
+        ? "bg-[#f9fafb]  text-Black text-lg font-extrabold"
+        : "bg-[#f04336]  text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "contactNo",
       headerName: "Phone",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: showSectionHeader
+        ? "bg-[#f9fafb]  text-Black text-lg font-extrabold"
+        : "bg-[#f04336]  text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "role",
       headerName: "Role",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: showSectionHeader
+        ? "bg-[#f9fafb]  text-Black text-lg font-extrabold"
+        : "bg-[#f04336]  text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "status",
       headerName: "Status",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: showSectionHeader
+        ? "bg-[#f9fafb]  text-Black text-lg font-extrabold"
+        : "bg-[#f04336]  text-white text-lg font-extrabold",
       flex: 1,
     },
     {
       field: "action",
       headerName: "Action",
-      headerClassName: "bg-[#fd7c72] text-white text-lg font-extrabold",
+      headerClassName: showSectionHeader
+        ? "bg-[#f9fafb]  text-Black text-lg font-extrabold"
+        : "bg-[#f04336]  text-white text-lg font-extrabold",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -178,9 +196,13 @@ const ManageUsersPage = () => {
         roleModalOpen={roleModalOpen}
         setRoleModalOpen={setRoleModalOpen}
       />
-      <SectionHeader HeaderTitle="Manage Users" subTitle="Dashboard" />
+      {showSectionHeader ? (
+        <div className="-mb-16"></div>
+      ) : (
+        <SectionHeader HeaderTitle="Manage Users" subTitle="Dashboard" />
+      )}
       <Box my={10}>
-        <Box sx={{ minHeight: "100vh", width: "100%" }}>
+        <Box sx={{ minHeight: "100vh", width: "100%", px: 2 }}>
           <DataGrid
             rows={rowsData}
             columns={columns}

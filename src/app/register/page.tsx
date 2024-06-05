@@ -5,6 +5,7 @@ import PInput from "@/components/Forms/PInput";
 import { registerUser } from "@/services/actions/register";
 import { loginUser } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.services";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
@@ -12,51 +13,48 @@ import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 //: Image Hosting Token
 const img_hosting_token = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_TOKEN;
 
-//: Register Validation Schema
-// export const registerValidationSchema = z
-//   .object({
-//     name: z.string({
-//       message: "Name is required",
-//     }),
-//     contactNo: z.string({
-//       message: "Contact No is required",
-//     }),
-//     userName: z.string().min(3).max(255, {
-//       message: "User Name should be between 3 to 255 characters",
-//     }),
-//     email: z.string().email({
-//       message: "Invalid Email",
-//     }),
-//     password: z.string({
-//       message: "Password is required",
-//     }),
-//     confirmPassword: z.string({
-//       message: "Confirm Password is required",
-//     }),
-//     profilePicture: z.string({
-//       message: "Profile Picture is required",
-//     }),
-//   })
-//   .refine((data) => data.password === data.confirmPassword, {
-//     message: "Password and Confirm Password should be same",
-//     path: ["confirmPassword"],
-//   });
+const registerSchema = z
+  .object({
+    name: z.string().min(1, "Name is required"),
+    contactNo: z.string().min(1, "Contact No is required"),
+    userName: z.string().min(1, "User Name is required"),
+    email: z.string().email("Invalid email"),
+    password: z.string().min(1, "Password is required"),
+    confirmPassword: z.string().min(1, "Confirm Password is required"),
+    profilePicture: z.instanceof(File, {
+      message: "Profile Picture is required",
+    }),
+    
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+type DefaultValues = {
+  name: string;
+  contactNo: string;
+  userName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  profilePicture: string;
+};
 
 //: Default Values
-// export const defaultValues = {
-//   name: "",
-//   contactNo: "",
-//   userName: "",
-//   email: "",
-//   password: "",
-//   confirmPassword: "",
-//   profilePicture: "",
-// };
+const defaultValues: DefaultValues = {
+  name: "",
+  contactNo: "",
+  userName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  profilePicture: "",
+};
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -66,6 +64,8 @@ const RegisterPage = () => {
 
   //: Handle Register
   const handleRegister: SubmitHandler<FieldValues> = async (data) => {
+    console.log("register data", data);
+
     const toastId = toast.loading("Registering...");
     try {
       const formData = new FormData();
@@ -119,6 +119,8 @@ const RegisterPage = () => {
         <div className="mx-4 mb-4 -mt-16">
           <PForm
             onSubmit={handleRegister}
+            defaultValues={defaultValues}
+            resolver={zodResolver(registerSchema)}
             className="max-w-4xl mx-auto bg-white shadow-[0_2px_18px_-3px_rgba(6,81,237,0.4)] sm:p-8 p-4 rounded-md"
           >
             <div className="grid md:grid-cols-2 md:gap-12 gap-7">
@@ -206,8 +208,8 @@ const RegisterPage = () => {
               <PInput
                 name="userName"
                 fullWidth={true}
-                label="userName*"
-                placeholder="Enter Your user name"
+                label="User Name*"
+                placeholder="Enter Your User Name"
                 type="text"
               />
               <PInput
@@ -242,7 +244,7 @@ const RegisterPage = () => {
                 label="Upload Profile Pic"
                 sx={{
                   backgroundColor: "#3c79e6",
-                  
+
                   my: 3,
                 }}
               />

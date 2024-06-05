@@ -59,7 +59,7 @@ const SideFilterSection = () => {
       </div>
       <div className="p-4 mb-5 bg-white border border-[#f04336]">
         <h2 className="text-2xl font-bold dark:text-gray-900">Breed</h2>
-        <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
+        <div className="w-16 pb-2 mb-6 border-b-2 border-[#f04336] "></div>
         <ul>
           <li className="mb-4">
             <label className="flex items-center dark:text-gray-300">
@@ -149,7 +149,7 @@ const SideFilterSection = () => {
       </div>
       <div className="p-4 mb-5 bg-white border border-[#f04336]">
         <h2 className="text-2xl font-bold dark:text-gray-900">Age</h2>
-        <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
+        <div className="w-16 pb-2 mb-6 border-b-2 border-[#f04336] "></div>
         <ul>
           <li className="mb-4">
             <label className="flex items-center dark:text-gray-300">
@@ -218,7 +218,7 @@ const SideFilterSection = () => {
       </div>
       <div className="p-4 mb-5 bg-white border border-[#f04336]">
         <h2 className="text-2xl font-bold dark:text-gray-900">Size</h2>
-        <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
+        <div className="w-16 pb-2 mb-6 border-b-2 border-[#f04336] "></div>
         <ul>
           <li className="mb-4">
             <label className="flex items-center dark:text-gray-300">
@@ -287,7 +287,7 @@ const SideFilterSection = () => {
       </div>
       <div className="p-4 mb-5 bg-white border border-[#f04336]">
         <h2 className="text-2xl font-bold dark:text-gray-900">Location</h2>
-        <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
+        <div className="w-16 pb-2 mb-6 border-b-2 border-[#f04336] "></div>
         <ul>
           <li className="mb-4">
             <label className="flex items-center dark:text-gray-300">
@@ -356,7 +356,7 @@ const SideFilterSection = () => {
       </div>
       <div className="p-4 mb-5 bg-white border border-[#f04336]">
         <h2 className="text-2xl font-bold dark:text-gray-900">Gender</h2>
-        <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
+        <div className="w-16 pb-2 mb-6 border-b-2 border-[#f04336] "></div>
         <ul>
           <li className="mb-4">
             <label className="flex items-center dark:text-gray-300">

@@ -74,7 +74,7 @@ const FindSection = () => {
     >
       <Container>
         <Stack
-        width="80%"
+          width="80%"
           direction="row"
           borderRadius={15}
           justifyContent={"center"}
@@ -151,7 +151,7 @@ const FindSection = () => {
             <Typography
               variant="h6"
               component={Link}
-              href="/"
+              href="/pets"
               color={"white"}
               fontWeight={600}
               sx={{ cursor: "pointer" }}
@@ -174,7 +174,7 @@ const FindSection = () => {
             <Typography
               variant="h6"
               component={Link}
-              href="/"
+              href="/pets"
               color={"white"}
               fontWeight={600}
               sx={{ cursor: "pointer" }}

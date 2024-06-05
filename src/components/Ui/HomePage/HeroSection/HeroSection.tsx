@@ -2,21 +2,17 @@
 
 import banner_1 from "@/asset/s_slider_bg01.jpg";
 import banner_2 from "@/asset/s_slider_bg02.jpg";
-import banner_3 from "@/asset/slider_bg02.jpg";
 import { Box, Button, Container, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-
-import {
-  ArrowBackIosNew,
-  ArrowForwardIos
-} from "@mui/icons-material";
+import "swiper/swiper-bundle.css";
+import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 import Image from "next/image";
 import { useEffect } from "react";
-import { Navigation } from "swiper/modules";
 
 const HeroSection = () => {
   useEffect(() => {
@@ -30,12 +26,9 @@ const HeroSection = () => {
   return (
     <Box position="relative">
       <Swiper
-        navigation={{
-          nextEl: ".custom-next",
-          prevEl: ".custom-prev",
-        }}
-        modules={[Navigation]}
+        modules={[Navigation, Autoplay]}
         className="mySwiper"
+        autoplay={{ delay: 3500, disableOnInteraction: false }}
       >
         <SwiperSlide>
           <Box
@@ -59,7 +52,12 @@ const HeroSection = () => {
                 zIndex: -1,
               }}
             >
-              <Image src={banner_1} width={1000} height={1000} alt="banner_1" />
+              <Image
+                src="https://www.ingridkuhn.com/themes/petz_bs5.3/img/slide2.jpg"
+                width={1000}
+                height={1000}
+                alt="banner_1"
+              />
             </Box>
 
             <Container>
@@ -202,9 +200,19 @@ const HeroSection = () => {
               position: "relative",
               minHeight: "100vh",
               "& img": {
+                position: "relative",
                 width: "100%",
                 minHeight: "100vh",
                 objectFit: "cover",
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust the opacity as needed
+                },
               },
             }}
           >
@@ -218,7 +226,14 @@ const HeroSection = () => {
                 zIndex: -1,
               }}
             >
-              <Image src={banner_2} width={1000} height={1000} alt="banner_2" />
+              <Image
+                src={
+                  "https://www.ingridkuhn.com/themes/petz_bs5.3/img/slide1.jpg"
+                }
+                width={1000}
+                height={1000}
+                alt="banner_2"
+              />
             </Box>
 
             <Container>
@@ -357,6 +372,7 @@ const HeroSection = () => {
           <Box
             sx={{
               position: "relative",
+
               minHeight: "100vh",
               "& img": {
                 width: "100%",
@@ -375,7 +391,12 @@ const HeroSection = () => {
                 zIndex: -1,
               }}
             >
-              <Image src={banner_3} width={1000} height={1000} alt="banner_3" />
+              <Image
+                src="https://www.ingridkuhn.com/themes/petz_bs5.3/img/slide0.jpg"
+                width={1000}
+                height={1000}
+                alt="banner_3"
+              />
             </Box>
 
             <Container>
@@ -512,18 +533,6 @@ const HeroSection = () => {
         </SwiperSlide>
       </Swiper>
       {/* Custom Navigation Buttons */}
-      <Button
-        className="custom-prev"
-        sx={{ position: "absolute", top: "50%", left: "10px", zIndex: 2 }}
-      >
-        <ArrowBackIosNew />
-      </Button>
-      <Button
-        className="custom-next"
-        sx={{ position: "absolute", top: "50%", right: "10px", zIndex: 2 }}
-      >
-        <ArrowForwardIos />
-      </Button>
     </Box>
   );
 };

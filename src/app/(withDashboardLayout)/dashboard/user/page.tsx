@@ -9,7 +9,7 @@ const UserHome = () => {
       </h1>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
         <section
-          className="section about-section  w-full lg:col-span-2 shadow-md shadow-orange-700"
+          className="section about-section  w-full lg:col-span-2 shadow-md shadow-[#f04336]"
           id="about w-full"
         >
           <div className="container mx-auto px-4">
@@ -92,7 +92,7 @@ const UserHome = () => {
           </div>
         </section>
 
-        <section className="p-5 space-y-5 flex flex-col justify-evenly  shadow-md shadow-orange-800">
+        <section className="p-5 space-y-5 flex flex-col justify-evenly  shadow-md shadow-[#f04336]">
           <h1 className="text-black text-4xl text-center font-bold italic">
             Your Activities
           </h1>

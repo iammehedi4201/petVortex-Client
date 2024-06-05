@@ -77,6 +77,8 @@ const Navbar = () => {
                 }, // text-5xl
                 fontWeight: "bold", // font-bold
                 color: "#f04336", // text-[#f04336]
+                
+
               }}
             >
               PetVortex
@@ -252,14 +254,16 @@ const Navbar = () => {
                 </Link>
               </li>
 
-              <li>
-                <Link
-                  href={`/dashboard/${userInfo?.role}/`}
-                  className="block py-2 pl-3 pr-4 text-black rounded  hover:text-orange-500 "
-                >
-                  Dashboard
-                </Link>
-              </li>
+              {userInfo && (
+                <li>
+                  <Link
+                    href={`/dashboard/${userInfo?.role}/`}
+                    className="block py-2 pl-3 pr-4 text-black rounded  hover:text-orange-500 "
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </Container>

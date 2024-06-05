@@ -18,7 +18,7 @@ const DashboardNavbar = () => {
 
   return (
     <div
-      className={`fixed w-full flex items-center justify-between h-14 md:h-24 text-black px-2 shadow-sm shadow-[#f04336]`}
+      className={`fixed w-full flex items-center justify-between h-14 md:h-24 text-black px-2 shadow-sm`}
     >
       <div className="flex  items-center justify-start md:justify-center  w-14 h-14  md:w-64 md:h-20 bg-white">
         <Box
@@ -45,14 +45,16 @@ const DashboardNavbar = () => {
               display: {
                 md: "block",
               },
+              padding: "0.8rem",
+              boxShadow: "0 0 5px #f04336",
             }}
           >
             PetVortex
           </Typography>
         </Box>
       </div>
-      <div className="hidden md:block ml-[-50%]">
-        <h1 className="text-gray-400 font-bold">
+      <div className="hidden md:block ml-[-60%]">
+        <h1 className="text-gray-500 font-bold">
           Hi, MD {myProfile?.data?.name}
         </h1>
         <h1 className="text-[#f04336] font-extrabold text-2xl">

@@ -11,7 +11,7 @@ type TProps = {
   sx?: SxProps;
 };
 
-export default function PHFileUploader({ name, label, sx}: TProps) {
+export default function PHFileUploader({ name, label, sx }: TProps) {
   const { control } = useFormContext();
   const [fileName, setFileName] = React.useState<string | null>(null);
 
@@ -19,7 +19,10 @@ export default function PHFileUploader({ name, label, sx}: TProps) {
     <Controller
       name={name}
       control={control}
-      render={({ field: { onChange, value, ...field } }) => {
+      render={({
+        field: { onChange, value, ...field },
+        fieldState: { error },
+      }) => {
         return (
           <Button
             component="label"
@@ -39,7 +42,13 @@ export default function PHFileUploader({ name, label, sx}: TProps) {
                 onChange(file);
               }}
               style={{ display: "none" }}
+              error={!!error?.message}
             />
+            {error?.message && (
+              <p style={{ color: "red", marginLeft: "10px" }}>
+                {error.message}
+              </p>
+            )}
           </Button>
         );
       }}
